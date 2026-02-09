@@ -3,25 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bashar Aboali | Portfolio</title>
+    <title>أبو علي | مصمم مواقع محترف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body { background: #0a0a0a; color: white; font-family: sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; }
-        .container { border: 1px solid #c5a059; padding: 50px; border-radius: 20px; background: #111; box-shadow: 0 0 20px rgba(197,160,89,0.2); }
-        h1 { color: #c5a059; font-size: 3rem; letter-spacing: 5px; margin-bottom: 10px; }
-        p { color: #888; letter-spacing: 2px; }
-        .social-btn { display: inline-block; margin-top: 20px; color: #c5a059; font-size: 2rem; text-decoration: none; border: 1px solid #c5a059; padding: 10px 20px; transition: 0.3s; }
-        .social-btn:hover { background: #c5a059; color: black; }
+        :root {
+            --primary-color: #00d2ff;
+            --secondary-color: #3a7bd5;
+            --text-color: #fff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* الشريط المتحرك (أبو علي) */
+        .marquee-container {
+            background: rgba(0, 210, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .marquee-text {
+            white-space: nowrap;
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* البطاقة التعريفية الزجاجية */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 100px auto;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 10px; color: var(--primary-color); }
+        p { font-size: 1.3rem; line-height: 1.8; }
+
+        /* الأداة السحرية: زر الاتصال */
+        .magic-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.6);
+        }
+
+        /* تأثير الجزيئات السحرية (الخلفية) */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>BASHAR</h1>
-        <p>CREATIVE DESIGNER</p>
-        <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="social-btn">
-            <i class="fab fa-facebook"></i> FACEBOOK
+
+    <div class="marquee-container">
+        <div class="marquee-text">
+             ✨ أبو علي لتصميم المواقع الاحترافية ✨ تصميم عصري ✨ سرعة في الأداء ✨ دعم فني مستمر ✨ أبو علي ✨
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <i class="fas fa-code-branch" style="font-size: 3rem; color: #00d2ff; margin-bottom: 20px;"></i>
+        <h1>أنا أبو علي</h1>
+        <p>مصمم مواقع محترف، أحول أفكارك إلى واقع رقمي مبهر. متخصص في بناء واجهات عصرية، سريعة، ومتجاوبة مع جميع الشاشات.</p>
+        <p style="font-size: 1.1rem; color: #ccc;">هل تبحث عن موقع يميز أعمالك؟ أنا هنا لمساعدتك.</p>
+        
+        <a href="https://github.com/basharaboali" class="magic-btn">
+            <i class="fab fa-github"></i> تواصل معي الآن
         </a>
     </div>
+
 </body>
 </html>
 
