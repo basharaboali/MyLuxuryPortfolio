@@ -6,149 +6,68 @@
     <title>BASHAR ABOALI | Creative Director</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark-main: #121212;
-            --dark-card: #1a1a1a;
-            --text-gray: #a0a0a0;
-        }
-        body {
-            background-color: var(--dark-main);
-            color: white;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        /* الهيدر العلوي */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(0,0,0,0.5);
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .btn-contact {
-            border: 1px solid var(--gold);
-            padding: 8px 20px;
-            color: var(--gold);
-        }
+        :root { --gold: #d4af37; --bg: #0d0d0d; --card: #161616; }
+        body { background: var(--bg); color: white; font-family: 'Arial', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* Navbar */
+        nav { display: flex; justify-content: space-between; padding: 25px 5%; align-items: center; background: rgba(0,0,0,0.8); position: fixed; width: 90%; z-index: 1000; }
+        .logo { color: var(--gold); font-weight: bold; font-size: 1.4rem; letter-spacing: 2px; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .contact-btn { border: 1px solid var(--gold); padding: 8px 18px; color: var(--gold); text-decoration: none; font-size: 0.8rem; }
 
-        /* قسم البطولة (Hero Section) */
-        .hero {
-            position: relative;
-            height: 80vh;
-            background: linear-gradient(to right, rgba(18,18,18,0.9) 30%, transparent), 
-                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            padding: 0 10%;
-        }
-        .hero-content h1 {
-            font-size: 4rem;
-            margin: 0;
-            letter-spacing: 5px;
-            color: white;
-            font-weight: 500;
-        }
-        .hero-content h2 {
-            color: var(--gold);
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            margin-top: 10px;
-        }
+        /* Hero Section - نفس شكل الصورة */
+        .hero { height: 85vh; display: flex; align-items: center; padding: 0 8%; background: linear-gradient(to right, #0d0d0d 40%, transparent), url('https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?q=80&w=1932&auto=format&fit=crop'); background-size: cover; background-position: center; }
+        .hero-text h1 { font-size: 4.5rem; margin: 0; letter-spacing: 6px; font-weight: 400; }
+        .hero-text h2 { color: var(--gold); font-size: 1.2rem; letter-spacing: 4px; margin-top: 10px; font-weight: 300; }
 
-        /* قسم المشاريع (الدوائر الذهبية كما في الصورة) */
-        .section-label {
-            padding: 40px 5%;
-            font-size: 1.2rem;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 1px solid #333;
-        }
-        .projects-scroll {
-            display: flex;
-            overflow-x: auto;
-            padding: 40px 5%;
-            gap: 30px;
-        }
-        .project-item {
-            text-align: center;
-            min-width: 150px;
-        }
-        .circle-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            margin-bottom: 15px;
-            background-size: cover;
-            background-position: center;
-            transition: 0.3s;
-        }
-        .circle-img:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--gold); }
-        .project-item p { font-size: 0.7rem; color: var(--text-gray); text-transform: uppercase; }
+        /* Section Label */
+        .label { padding: 40px 8% 20px; font-size: 1rem; letter-spacing: 3px; color: #eee; text-transform: uppercase; border-bottom: 1px solid #222; margin-bottom: 30px; }
 
-        /* روابط التواصل */
-        .social-fixed {
-            margin-top: 30px;
-        }
-        .social-fixed a {
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin-right: 15px;
-        }
+        /* Projects - الدوائر الذهبية */
+        .projects-container { display: flex; overflow-x: auto; padding: 20px 8%; gap: 40px; scrollbar-width: none; }
+        .project-card { text-align: center; min-width: 160px; transition: 0.4s; }
+        .project-card:hover { transform: translateY(-10px); }
+        .circle { width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--gold); margin-bottom: 15px; background-size: cover; background-position: center; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+        .project-card p { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="color:var(--gold); font-weight:bold; font-size:1.5rem;">BASHAR ABOALI</div>
+        <div class="logo">BASHAR ABOALI</div>
         <div class="nav-links">
             <a href="#">Work</a>
             <a href="#">About</a>
-            <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="btn-contact">Contact</a>
+            <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="contact-btn">Contact</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="hero-content">
-            <h1>BASHAR ABOALI</h1>
+        <div class="hero-text">
+            <h1>BASHAR <br> ABOALI</h1>
             <h2>CREATIVE DIRECTOR & VISUAL ARTIST</h2>
-            <div class="social-fixed">
-                <a href="https://www.facebook.com/share/1L7TQRNq6N/"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
         </div>
     </section>
 
-    <div class="section-label">Branding Projects</div>
+    <div class="label">Brand Projects</div>
 
-    <div class="projects-scroll">
-        <div class="project-item">
-            <div class="circle-img" style="background-image: url('https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&q=80')"></div>
+    <div class="projects-container">
+        <div class="project-card">
+            <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400')"></div>
             <p>Aurora Rebrand</p>
         </div>
-        <div class="project-item">
-            <div class="circle-img" style="background-image: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=400&q=80')"></div>
-            <p>Solaris UI</p>
+        <div class="project-card">
+            <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=400')"></div>
+            <p>Solaris Art</p>
         </div>
-        <div class="project-item">
-            <div class="circle-img" style="background-image: url('https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&q=80')"></div>
-            <p>Metropolis App</p>
+        <div class="project-card">
+            <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400')"></div>
+            <p>Metropolis UI</p>
         </div>
-        <div class="project-item">
-            <div class="circle-img" style="background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&q=80')"></div>
-            <p>Digital Art</p>
+        <div class="project-card">
+            <div class="circle" style="background-image: url('https://images.unsplash.com/photo-1634128221889-82ed6efebfc3?w=400')"></div>
+            <p>Modern Identity</p>
         </div>
     </div>
 
