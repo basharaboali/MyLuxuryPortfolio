@@ -4,62 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BASHAR ABOALI | Creative Director</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-color: #ffffff;
-            --accent-color: #c9a063; /* لون ذهبي خافت للفخامة */
-            --gray: #888;
+            --bg-color: #050505;
+            --card-bg: #0f0f0f;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            --accent: #c9a063; /* اللون الذهبي الفاخر */
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* إخفاء المؤشر العادي لاستخدام المخصص */
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* المؤشر المخصص */
-        .cursor {
+        /* --- المؤشر المخصص --- */
+        #custom-cursor {
             width: 20px;
             height: 20px;
-            border: 2px solid var(--accent-color);
+            border: 1px solid var(--accent);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-            display: none;
+            z-index: 10000;
+            transition: transform 0.15s ease-out;
+            mix-blend-mode: difference;
         }
 
-        @media (min-width: 768px) { .cursor { display: block; } }
-
+        /* --- الهيدر (Header) --- */
         header {
             padding: 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
         }
 
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
 
         nav a {
-            color: var(--text-color);
+            color: var(--text-main);
             text-decoration: none;
             margin-left: 30px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
             transition: 0.3s;
+            font-weight: 300;
         }
 
-        nav a:hover { color: var(--accent-color); }
+        nav a:hover { color: var(--accent); }
 
+        /* --- القسم الرئيسي (Hero) --- */
         .hero {
-            height: 80vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -68,69 +90,130 @@
             padding: 20px;
         }
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 10vw, 6rem);
-            line-height: 1.1;
+        .hero span {
+            color: var(--accent);
+            letter-spacing: 5px;
+            font-size: 0.9rem;
             margin-bottom: 20px;
+            display: block;
+            font-weight: 300;
         }
 
-        .hero p { color: var(--gray); font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase; }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 12vw, 8rem);
+            line-height: 0.9;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
 
-        /* قسم الخدمات الجديد */
-        .services { padding: 100px 40px; background: #0f0f0f; }
-        .services h2 { 
-            text-align: center; 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.5rem; 
-            margin-bottom: 60px; 
+        /* --- قسم الخدمات (Services) --- */
+        .services { padding: 120px 40px; background: var(--card-bg); }
+        
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 80px;
+            letter-spacing: 2px;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .service-card {
-            border: 1px solid #222;
-            padding: 50px;
-            transition: 0.5s;
-            cursor: pointer;
+            border-bottom: 1px solid #222;
+            padding: 40px 20px;
+            transition: 0.4s;
         }
 
         .service-card:hover {
-            border-color: var(--accent-color);
             background: #151515;
+            border-bottom-color: var(--accent);
             transform: translateY(-5px);
         }
 
-        .service-card h3 { margin-bottom: 15px; font-size: 1.5rem; }
-        .service-card p { color: var(--gray); font-size: 0.95rem; }
+        .service-card h3 { margin-bottom: 20px; font-weight: 600; font-size: 1.3rem; }
+        .service-card p { color: var(--text-dim); font-size: 0.9rem; font-weight: 300; }
 
+        /* --- قسم الأعمال (Work) --- */
+        .work { padding: 120px 40px; }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project {
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+            background: #111;
+        }
+
+        .project img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            opacity: 0.7;
+        }
+
+        .project:hover img { transform: scale(1.1); opacity: 0.4; }
+
+        .project-info {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            transition: 0.4s;
+        }
+
+        .project-info h4 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; }
+        .project-info span { color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; }
+
+        /* --- الفوتر (Footer) --- */
         footer {
-            padding: 60px;
+            padding: 100px 40px;
             text-align: center;
-            border-top: 1px solid #222;
+            border-top: 1px solid #111;
         }
 
-        .contact-link {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            text-decoration: none;
+        .contact-btn {
             font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-main);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 10px;
+            transition: 0.3s;
         }
 
+        .contact-btn:hover { color: var(--accent); letter-spacing: 2px; }
+
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            .work-grid { grid-template-columns: 1fr; }
+            * { cursor: auto; }
+            #custom-cursor { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="cursor"></div>
+    <div id="custom-cursor"></div>
 
     <header>
-        <div class="logo">BASHAR ABOALI</div>
+        <a href="#" class="logo">BASHAR ABOALI</a>
         <nav>
             <a href="#work">WORK</a>
             <a href="#services">SERVICES</a>
@@ -139,45 +222,75 @@
     </header>
 
     <section class="hero">
-        <p>Creative Director & Visual Artist</p>
-        <h1>BASHAR<br>ABOALI</h1>
+        <span>CREATIVE DIRECTOR & VISUAL ARTIST</span>
+        <h1>Elevating Brands<br>Through Art.</h1>
     </section>
 
     <section id="services" class="services">
-        <h2>SERVICES</h2>
+        <h2 class="section-title">SERVICES</h2>
         <div class="services-grid">
             <div class="service-card">
-                <h3>Branding</h3>
-                <p>Creating unique visual identities that resonate with luxury and high-end markets.</p>
+                <h3>01. Branding</h3>
+                <p>Crafting high-end visual identities that define the essence of luxury and modern business.</p>
             </div>
             <div class="service-card">
-                <h3>Creative Direction</h3>
-                <p>Leading the visual narrative from concept to execution for premium brands.</p>
+                <h3>02. Art Direction</h3>
+                <p>Strategic visual storytelling that aligns brand goals with cutting-edge artistic execution.</p>
             </div>
             <div class="service-card">
-                <h3>Visual Art</h3>
-                <p>Exclusive digital art and visual storytelling that pushes creative boundaries.</p>
+                <h3>03. Digital Design</h3>
+                <p>Creating immersive UI/UX experiences that are as functional as they are beautiful.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="work">
+        <h2 class="section-title">FEATURED WORK</h2>
+        <div class="work-grid">
+            <div class="project">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1528&auto=format&fit=crop" alt="Aurora">
+                <div class="project-info">
+                    <h4>Aurora Rebrand</h4>
+                    <span>Visual Identity</span>
+                </div>
+            </div>
+            <div class="project">
+                <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=1470&auto=format&fit=crop" alt="Solaris">
+                <div class="project-info">
+                    <h4>Solaris Art</h4>
+                    <span>Creative Direction</span>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p style="margin-bottom: 20px; color: var(--gray);">Ready to start a project?</p>
-        <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="contact-link">Get in Touch →</a>
+        <p style="color: var(--text-dim); letter-spacing: 2px;">WANT TO COLLABORATE?</p>
+        <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="contact-btn">Get In Touch →</a>
+        <p style="margin-top: 60px; font-size: 0.7rem; color: #333;">© 2026 BASHAR ABOALI. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
-        // تحريك المؤشر
-        const cursor = document.querySelector('.cursor');
+        // حركة المؤشر المخصص
+        const cursor = document.getElementById('custom-cursor');
+        
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
 
-        // تأثير بسيط عند المرور على الروابط
-        document.querySelectorAll('a, .service-card').forEach(link => {
-            link.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2)');
-            link.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        // تأثير تكبير المؤشر عند ملامسة الروابط أو الكروت
+        const interactiveElements = document.querySelectorAll('a, .service-card, .project');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(2.5)';
+                cursor.style.backgroundColor = 'rgba(201, 160, 99, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.backgroundColor = 'transparent';
+            });
         });
     </script>
 </body>
