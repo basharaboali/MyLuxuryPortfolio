@@ -1,79 +1,184 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BASHAR ABOALI | Creative Director</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #c5a059; --black: #050505; --dark-card: #0f0f0f; }
-        body { background: var(--black); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-        
-        /* Nav */
-        nav { display: flex; justify-content: space-between; padding: 30px 6%; align-items: center; background: rgba(0,0,0,0.9); position: fixed; width: 88%; z-index: 1000; }
-        .logo { color: white; font-weight: 700; font-size: 1.2rem; letter-spacing: 3px; }
-        .nav-links a { color: #888; text-decoration: none; margin-left: 25px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        .contact-btn { border: 1px solid var(--gold); padding: 10px 25px; color: white !important; }
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #c9a063; /* لون ذهبي خافت للفخامة */
+            --gray: #888;
+        }
 
-        /* Hero - مطابق للصورة */
-        .hero { height: 90vh; display: flex; align-items: center; padding: 0 10%; background: linear-gradient(to right, var(--black) 35%, transparent), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000'); background-size: cover; background-position: center; border-bottom: 1px solid #1a1a1a; }
-        .hero-text h1 { font-size: 5rem; margin: 0; letter-spacing: 12px; font-weight: 800; text-transform: uppercase; line-height: 1; }
-        .hero-text h2 { color: var(--gold); font-size: 1.1rem; letter-spacing: 6px; margin-top: 20px; font-weight: 300; text-transform: uppercase; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Projects Section */
-        .section-label { padding: 60px 10% 20px; font-size: 0.9rem; letter-spacing: 4px; color: #444; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
-        .projects-grid { display: flex; overflow-x: auto; padding: 20px 10% 80px; gap: 40px; scrollbar-width: none; }
-        .project-item { text-align: center; min-width: 180px; transition: 0.5s; }
-        .project-item:hover { transform: scale(1.05); }
-        .circle-frame { width: 170px; height: 170px; border-radius: 50%; border: 2.5px solid var(--gold); margin-bottom: 20px; background-size: cover; background-position: center; position: relative; box-shadow: 0 0 30px rgba(197, 160, 89, 0.1); }
-        .project-item p { font-size: 0.7rem; color: #777; letter-spacing: 2px; text-transform: uppercase; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* المؤشر المخصص */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            display: none;
+        }
+
+        @media (min-width: 768px) { .cursor { display: block; } }
+
+        header {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 2px; }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero p { color: var(--gray); font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase; }
+
+        /* قسم الخدمات الجديد */
+        .services { padding: 100px 40px; background: #0f0f0f; }
+        .services h2 { 
+            text-align: center; 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.5rem; 
+            margin-bottom: 60px; 
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            border: 1px solid #222;
+            padding: 50px;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-color);
+            background: #151515;
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 { margin-bottom: 15px; font-size: 1.5rem; }
+        .service-card p { color: var(--gray); font-size: 0.95rem; }
+
+        footer {
+            padding: 60px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .contact-link {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
 
     </style>
 </head>
 <body>
 
-    <nav>
+    <div class="cursor"></div>
+
+    <header>
         <div class="logo">BASHAR ABOALI</div>
-        <div class="nav-links">
-            <a href="#">Work</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="contact-btn">Contact</a>
-        </div>
-    </nav>
+        <nav>
+            <a href="#work">WORK</a>
+            <a href="#services">SERVICES</a>
+            <a href="https://www.facebook.com/share/1L7TQRNq6N/">CONTACT</a>
+        </nav>
+    </header>
 
     <section class="hero">
-        <div class="hero-text">
-            <h1>BASHAR <br> ABOALI</h1>
-            <h2>Creative Director & Visual Artist</h2>
+        <p>Creative Director & Visual Artist</p>
+        <h1>BASHAR<br>ABOALI</h1>
+    </section>
+
+    <section id="services" class="services">
+        <h2>SERVICES</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Branding</h3>
+                <p>Creating unique visual identities that resonate with luxury and high-end markets.</p>
+            </div>
+            <div class="service-card">
+                <h3>Creative Direction</h3>
+                <p>Leading the visual narrative from concept to execution for premium brands.</p>
+            </div>
+            <div class="service-card">
+                <h3>Visual Art</h3>
+                <p>Exclusive digital art and visual storytelling that pushes creative boundaries.</p>
+            </div>
         </div>
     </section>
 
-    <div class="section-label">
-        <span>Branding Projects</span>
-        <span style="font-size: 0.7rem;">View All Projects →</span>
-    </div>
+    <footer>
+        <p style="margin-bottom: 20px; color: var(--gray);">Ready to start a project?</p>
+        <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="contact-link">Get in Touch →</a>
+    </footer>
 
-    <div class="projects-grid">
-        <div class="project-item">
-            <div class="circle-frame" style="background-image: url('https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500')"></div>
-            <p>Aurora Rebrand</p>
-        </div>
-        <div class="project-item">
-            <div class="circle-frame" style="background-image: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=500')"></div>
-            <p>Solaris Art</p>
-        </div>
-        <div class="project-item">
-            <div class="circle-frame" style="background-image: url('https://images.unsplash.com/photo-1558655146-d09347e92766?w=500')"></div>
-            <p>Metropolis UI</p>
-        </div>
-        <div class="project-item">
-            <div class="circle-frame" style="background-image: url('https://images.unsplash.com/photo-1618005192346-0bb030219601?w=500')"></div>
-            <p>Modern Identity</p>
-        </div>
-    </div>
+    <script>
+        // تحريك المؤشر
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
 
+        // تأثير بسيط عند المرور على الروابط
+        document.querySelectorAll('a, .service-card').forEach(link => {
+            link.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2)');
+            link.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        });
+    </script>
 </body>
 </html>
-
