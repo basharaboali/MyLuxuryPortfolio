@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BASHAR ABOALI | The Creative Frontier</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <title>BASHAR ABOALI | الإبداع اللامتناهي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Playfair+Display:ital,wght@0,900;1,900&family=Amiri:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
     <style>
         :root {
             --primary: #ffffff;
@@ -15,70 +18,61 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { 
-            background: var(--bg); 
-            color: var(--primary); 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            overflow-x: hidden;
-        }
+        body { background: var(--bg); color: var(--primary); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
 
-        #interactive-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
+        /* --- خلفية متحركة --- */
+        #interactive-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
 
-        #cursor-dot {
-            width: 8px; height: 8px; background: var(--accent);
-            border-radius: 50%; position: fixed; z-index: 10001;
-            pointer-events: none;
-        }
-        #cursor-outline {
-            width: 40px; height: 40px; border: 1px solid var(--accent);
-            border-radius: 50%; position: fixed; z-index: 10000;
-            pointer-events: none; transition: all 0.1s ease-out;
-        }
+        /* --- المؤشر الذهبي --- */
+        #cursor-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 10001; pointer-events: none; }
+        #cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; transition: all 0.15s ease-out; }
 
-        header {
-            position: fixed; top: 0; width: 100%; padding: 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; mix-blend-mode: difference;
+        /* --- مشغل الأنشودة --- */
+        .audio-control {
+            position: fixed; bottom: 40px; right: 40px; z-index: 2000;
+            width: 60px; height: 60px; border-radius: 50%; background: var(--glass);
+            border: 1px solid var(--accent); display: flex; justify-content: center; align-items: center;
+            backdrop-filter: blur(10px); animation: pulse 2s infinite;
         }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: white; text-decoration: none; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
 
-        .hero {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-        }
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 12vw, 10rem);
-            line-height: 0.8; margin-bottom: 20px;
-            background: linear-gradient(to bottom, #fff 40%, #666 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero-sub { font-size: 0.7rem; letter-spacing: 8px; text-transform: uppercase; color: var(--accent); }
+        header { position: fixed; top: 0; width: 100%; padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: white; text-decoration: none; }
 
-        .glass-section { padding: 100px 10%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        /* --- Hero --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 12rem); line-height: 0.8; margin-bottom: 20px; font-style: italic; }
+        .hero-sub { font-size: 0.7rem; letter-spacing: 10px; text-transform: uppercase; color: var(--accent); }
+
+        /* --- كروت الكريستال (النقطة 2) --- */
+        .section { padding: 120px 10%; }
         .glass-card {
-            background: var(--glass); border: 1px solid var(--border);
-            padding: 50px 30px; backdrop-filter: blur(10px);
-            transition: 0.5s;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--border); padding: 60px 40px; backdrop-filter: blur(15px);
+            position: relative; overflow: hidden; transition: 0.5s;
         }
-        .glass-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .glass-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg); transition: 0.8s;
+        }
+        .glass-card:hover::before { left: 100%; }
+        .glass-card:hover { border-color: var(--accent); transform: scale(1.02); }
 
-        .work-showcase { padding: 50px 5%; }
-        .project-wide {
-            width: 100%; height: 70vh; margin-bottom: 40px;
-            position: relative; overflow: hidden; border-radius: 4px;
-        }
-        .project-wide img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(1) brightness(0.5); transition: 1s;
-        }
-        .project-wide:hover img { filter: grayscale(0) brightness(0.7); transform: scale(1.03); }
-        .project-caption { position: absolute; bottom: 40px; left: 40px; }
-        .project-caption h2 { font-size: 3rem; font-family: 'Playfair Display', serif; }
+        /* --- الشهادات (النقطة 3) --- */
+        .testimonial { text-align: center; max-width: 800px; margin: 0 auto; padding: 40px; }
+        .testimonial p { font-family: 'Amiri', serif; font-size: 1.8rem; font-style: italic; color: var(--accent); margin-bottom: 20px; }
+        .testimonial span { font-size: 0.8rem; letter-spacing: 3px; opacity: 0.6; }
 
-        footer { padding: 100px 40px; text-align: center; }
-        .cta-text { font-size: 3rem; font-family: 'Playfair Display', serif; text-decoration: none; color: white; border-bottom: 2px solid var(--accent); }
+        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 50px; }
+        .project { height: 60vh; position: relative; overflow: hidden; }
+        .project img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+        .project:hover img { filter: grayscale(0); transform: scale(1.1); }
+
+        footer { padding: 100px 40px; text-align: center; border-top: 1px solid var(--border); }
+        .cta { font-family: 'Playfair Display', serif; font-size: 3rem; text-decoration: none; color: white; position: relative; }
+        .cta::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--accent); transition: 0.5s; }
+        .cta:hover::after { width: 100%; }
 
         @media (max-width: 768px) { * { cursor: auto !important; } #cursor-dot, #cursor-outline { display: none; } }
     </style>
@@ -89,70 +83,117 @@
     <div id="cursor-dot"></div>
     <div id="cursor-outline"></div>
 
+    <div class="audio-control" onclick="toggleAudio()" id="musicBtn">
+        <i class="fas fa-music" style="color: var(--accent); font-size: 1.2rem;"></i>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    <div style="display:none">
+        <iframe id="ytPlayer" width="0" height="0" src="https://www.youtube.com/embed/VZY3_wV8GkE?enablejsapi=1" frameborder="0"></iframe>
+    </div>
+
     <header>
         <a href="#" class="logo">B.A</a>
-        <a href="https://www.facebook.com/share/1L7TQRNq6N/" style="color:white; text-decoration:none; font-size: 0.7rem; letter-spacing: 2px; border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px;">CONNECT</a>
+        <nav>
+            <a href="https://www.facebook.com/share/1L7TQRNq6N/" style="color:var(--accent); text-decoration:none; font-size: 0.8rem; letter-spacing: 2px;">تواصل معي</a>
+        </nav>
     </header>
 
-    <section class="hero">
-        <p class="hero-sub">Creative Director</p>
+    <section class="hero reveal">
+        <p class="hero-sub">المخرج الإبداعي</p>
         <h1 class="hero-title">BASHAR</h1>
-        <p class="hero-sub">Visual Art & Strategy</p>
+        <p class="hero-sub">صناعة الفخامة الرقمية</p>
     </section>
 
-    <section class="work-showcase">
-        <div class="project-wide">
-            <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Project 1">
-            <div class="project-caption"><h2>Visual Soul</h2><span>Concept Design</span></div>
-        </div>
-        <div class="project-wide">
-            <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Project 2">
-            <div class="project-caption"><h2>Future Identity</h2><span>Branding</span></div>
+    <section class="section reveal">
+        <div class="glass-card">
+            <div class="testimonial">
+                <p>"التصميم ليس مجرد شكل، بل هو الروح التي تمنح العلامة التجارية خلودها."</p>
+                <span>فلسفة الإخراج الفني</span>
+            </div>
         </div>
     </section>
 
-    <section class="glass-section">
-        <div class="grid">
-            <div class="glass-card"><h3>Design</h3><p>Elegant solutions for complex digital problems.</p></div>
-            <div class="glass-card"><h3>Innovation</h3><p>Pushing the boundaries of visual aesthetics.</p></div>
-            <div class="glass-card"><h3>Strategy</h3><p>Building brands that stand the test of time.</p></div>
+    <section class="section">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3rem; margin-bottom: 50px;" class="reveal">الأعمال المختارة</h2>
+        <div class="work-grid">
+            <div class="project reveal">
+                <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" alt="Work">
+            </div>
+            <div class="project reveal">
+                <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" alt="Work">
+            </div>
         </div>
     </section>
 
     <footer>
-        <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="cta-text">Let's Work Together</a>
-        <p style="margin-top: 40px; opacity: 0.3; font-size: 0.7rem;">© 2026 BASHAR ABOALI</p>
+        <p style="margin-bottom: 30px; letter-spacing: 5px;">هل أنت جاهز للتميز؟</p>
+        <a href="https://www.facebook.com/share/1L7TQRNq6N/" class="cta">لنبدأ المشروع →</a>
+        <p style="margin-top: 60px; opacity: 0.2; font-size: 0.7rem;">© 2026 BASHAR ABOALI | ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
+        // --- 1. تأثير الظهور التدريجي (Scroll Reveal) ---
+        ScrollReveal().reveal('.reveal', {
+            delay: 300, distance: '50px', origin: 'bottom', duration: 1000, interval: 200, easing: 'cubic-bezier(0.5, 0, 0, 1)'
+        });
+
+        // --- 2. التحكم بالأنشودة (YouTube API) ---
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytPlayer');
+        }
+
+        let isPlaying = false;
+        function toggleAudio() {
+            if (!isPlaying) {
+                player.playVideo();
+                document.getElementById('musicBtn').style.animation = "none";
+                document.getElementById('musicBtn').innerHTML = '<i class="fas fa-pause" style="color: var(--accent)"></i>';
+            } else {
+                player.pauseVideo();
+                document.getElementById('musicBtn').innerHTML = '<i class="fas fa-music" style="color: var(--accent)"></i>';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // --- 3. محرك الخلفية التفاعلية ---
         const canvas = document.getElementById('interactive-bg');
         const ctx = canvas.getContext('2d');
         let points = [];
         function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         class Point {
-            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.vx = (Math.random()-0.5)*0.5; this.vy = (Math.random()-0.5)*0.5; }
+            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.vx = (Math.random()-0.5)*0.3; this.vy = (Math.random()-0.5)*0.3; }
             update() { this.x += this.vx; this.y += this.vy; if(this.x<0 || this.x>canvas.width) this.vx*=-1; if(this.y<0 || this.y>canvas.height) this.vy*=-1; }
         }
-        function init() { resize(); for(let i=0; i<50; i++) points.push(new Point()); animate(); }
+        function init() { resize(); for(let i=0; i<40; i++) points.push(new Point()); animate(); }
         function animate() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = 'rgba(212, 175, 55, 0.2)';
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = 'rgba(212, 175, 55, 0.1)';
             for(let i=0; i<points.length; i++) {
                 points[i].update();
                 for(let j=i+1; j<points.length; j++) {
                     let d = Math.hypot(points[i].x-points[j].x, points[i].y-points[j].y);
-                    if(d<200) { ctx.beginPath(); ctx.moveTo(points[i].x, points[i].y); ctx.lineTo(points[j].x, points[j].y); ctx.stroke(); }
+                    if(d<250) { ctx.beginPath(); ctx.moveTo(points[i].x, points[i].y); ctx.lineTo(points[j].x, points[j].y); ctx.stroke(); }
                 }
             }
             requestAnimationFrame(animate);
         }
+
+        // --- 4. محرك المؤشر ---
         const dot = document.getElementById('cursor-dot');
         const outline = document.getElementById('cursor-outline');
         window.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-            outline.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 400, fill: "forwards" });
+            outline.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 500, fill: "forwards" });
         });
+
         window.onresize = resize;
         init();
     </script>
