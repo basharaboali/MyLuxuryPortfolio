@@ -25,35 +25,46 @@
 
         canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
 
-        /* المؤشر */
         #cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 10001; pointer-events: none; }
         #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; transition: transform 0.1s; }
 
-        /* الهيدر */
-        header { position: fixed; top: 0; width: 100%; padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; }
-        .controls { display: flex; gap: 15px; align-items: center; }
-        .btn-icon { background: none; border: 1px solid var(--accent); color: var(--accent); width: 45px; height: 45px; border-radius: 50%; cursor: none; display: flex; justify-content: center; align-items: center; transition: 0.3s; position: relative; }
-        .btn-icon:hover { background: var(--accent); color: #000; transform: scale(1.1); }
+        header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(0,0,0,0.2); backdrop-filter: blur(5px); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
 
-        /* Hero */
+        .nav-group { display: flex; gap: 15px; align-items: center; }
+        
+        /* زر التواصل الجديد البارز */
+        .contact-btn {
+            background: var(--accent);
+            color: #000;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            border: 1px solid var(--accent);
+        }
+        .contact-btn:hover { background: transparent; color: var(--accent); }
+
+        .btn-icon { background: none; border: 1px solid rgba(212, 175, 55, 0.3); color: var(--accent); width: 42px; height: 42px; border-radius: 50%; cursor: none; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .btn-icon:hover { border-color: var(--accent); transform: scale(1.1); }
+
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 10rem); font-style: italic; line-height: 0.8; }
 
-        /* الأنميشن السينمائي للصور */
         .work-container { padding: 100px 5%; }
         .project-card { position: relative; width: 100%; height: 80vh; margin-bottom: 80px; overflow: hidden; border-radius: 5px; background: #111; }
-        .project-card img { width: 100%; height: 140%; object-fit: cover; position: absolute; top: -20%; transition: filter 0.8s ease; filter: grayscale(100%); }
+        .project-card img { width: 100%; height: 140%; object-fit: cover; position: absolute; top: -20%; transition: 0.8s ease; filter: grayscale(100%); }
         .project-card:hover img { filter: grayscale(0%); }
-        .project-info { position: absolute; bottom: 50px; right: 50px; z-index: 10; text-align: right; pointer-events: none; }
-        .project-info h2 { font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
-
-        /* نافذة السيرة الذاتية */
+        
         #cv-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(15px); }
-        .cv-content { background: var(--glass); border: 1px solid var(--accent); padding: 60px; max-width: 600px; text-align: center; position: relative; color: #fff; }
+        .cv-content { background: var(--glass); border: 1px solid var(--accent); padding: 60px; max-width: 600px; text-align: center; color: #fff; position: relative; }
 
-        footer { padding: 100px; text-align: center; border-top: 1px solid var(--glass); opacity: 0.5; }
+        footer { padding: 80px; text-align: center; opacity: 0.5; font-size: 0.8rem; }
 
-        @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } header { padding: 20px; } }
+        @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } header { padding: 15px 20px; } .contact-btn { padding: 8px 15px; font-size: 0.7rem; } }
     </style>
 </head>
 <body>
@@ -65,17 +76,18 @@
     <div style="display:none"><div id="yt-player"></div></div>
 
     <header>
-        <div style="font-family: 'Playfair Display'; font-size: 2rem; font-weight: 900; color: #fff;">B.A</div>
-        <div class="controls">
+        <a href="#" class="logo">B.A</a>
+        <div class="nav-group">
             <button class="btn-icon" id="music-btn" onclick="toggleMusic()" title="تشغيل النشيد">
                 <i class="fas fa-play" id="music-icon"></i>
-            </button>
-            <button class="btn-icon" onclick="toggleTheme()" title="تبديل النمط">
-                <i class="fas fa-moon" id="theme-icon"></i>
             </button>
             <button class="btn-icon" onclick="openCV()" title="السيرة الذاتية">
                 <i class="fas fa-file-alt"></i>
             </button>
+            <button class="btn-icon" onclick="toggleTheme()" title="تبديل النمط">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <a href="https://www.facebook.com/share/1J89HSCvXk/" class="contact-btn">تواصل معي</a>
         </div>
     </header>
 
@@ -87,11 +99,15 @@
     <div class="work-container">
         <div class="project-card">
             <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" class="parallax-img">
-            <div class="project-info"><h2>Visual Soul</h2><p>ART DIRECTION</p></div>
+            <div style="position:absolute; bottom:40px; right:40px; z-index:10;">
+                <h2 style="font-family:'Playfair Display'; font-size:3rem; color:#fff;">Visual Art</h2>
+            </div>
         </div>
         <div class="project-card">
             <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" class="parallax-img">
-            <div class="project-info"><h2>Digital Era</h2><p>BRANDING</p></div>
+            <div style="position:absolute; bottom:40px; right:40px; z-index:10;">
+                <h2 style="font-family:'Playfair Display'; font-size:3rem; color:#fff;">Luxury Identity</h2>
+            </div>
         </div>
     </div>
 
@@ -99,23 +115,18 @@
         <div class="cv-content">
             <span style="position:absolute; top:20px; left:20px; cursor:pointer; font-size:2rem; color:var(--accent);" onclick="closeCV()">&times;</span>
             <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 20px;">BASHAR ABOALI</h2>
-            <p style="color: var(--accent); margin-bottom: 30px;">مدير إبداعي وفنان بصري</p>
-            <div style="text-align: right; line-height: 2;">
-                <p>• تصميم هويات بصرية استراتيجية.</p>
-                <p>• إخراج فني للمشاريع الفاخرة.</p>
-                <p>• تطوير تجارب رقمية تفاعلية.</p>
-            </div>
-            <button class="btn-icon" style="width: auto; padding: 0 30px; border-radius: 5px; margin-top: 40px;" onclick="window.print()">تصدير PDF</button>
+            <p style="color: var(--accent); margin-bottom: 30px;">مدير إبداعي</p>
+            <p>خبير في صناعة الهويات الرقمية الفاخرة وتطوير التجارب البصرية.</p>
+            <button class="contact-btn" style="margin-top: 30px; border-radius: 5px;" onclick="window.print()">تحميل ملف الخبرات</button>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 BASHAR ABOALI | DEFINING THE FUTURE</p>
+        <p>© 2026 BASHAR ABOALI | ALL RIGHTS RESERVED</p>
     </footer>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // --- 1. إدارة النشيد (YouTube API) ---
         let player;
         let isPlaying = false;
         function onYouTubeIframeAPIReady() {
@@ -131,17 +142,16 @@
             if(!isPlaying) {
                 player.playVideo();
                 icon.className = "fas fa-pause";
-                btn.style.boxShadow = "0 0 15px var(--accent)";
+                btn.style.borderColor = "var(--accent)";
                 isPlaying = true;
             } else {
                 player.pauseVideo();
                 icon.className = "fas fa-play";
-                btn.style.boxShadow = "none";
+                btn.style.borderColor = "rgba(212,175,55,0.3)";
                 isPlaying = false;
             }
         }
 
-        // --- 2. تبديل النمط ---
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
             const icon = document.getElementById('theme-icon');
@@ -149,11 +159,9 @@
             icon.classList.toggle('fa-sun');
         }
 
-        // --- 3. السيرة الذاتية ---
         function openCV() { document.getElementById('cv-modal').style.display = 'flex'; }
         function closeCV() { document.getElementById('cv-modal').style.display = 'none'; }
 
-        // --- 4. تأثير Parallax المطور ---
         window.addEventListener('scroll', () => {
             const imgs = document.querySelectorAll('.parallax-img');
             imgs.forEach(img => {
@@ -165,7 +173,6 @@
             });
         });
 
-        // --- 5. المؤشر والخلفية التفاعلية ---
         const dot = document.getElementById('cursor');
         const follow = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
