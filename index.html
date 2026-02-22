@@ -12,15 +12,12 @@
             --accent: #d4af37;
             --bg: #000000;
             --glass: rgba(255, 255, 255, 0.05);
-            --card-hover: rgba(212, 175, 55, 0.1);
         }
 
-        /* النمط الفاتح (Light Mode) */
         body.light-mode {
             --primary: #000000;
             --bg: #f8f8f8;
             --glass: rgba(0, 0, 0, 0.05);
-            --card-hover: rgba(212, 175, 55, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -28,36 +25,35 @@
 
         canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
 
-        /* المؤشر المطور */
+        /* المؤشر */
         #cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 10001; pointer-events: none; }
         #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; transition: transform 0.1s; }
 
-        /* الهيدر والأزرار */
+        /* الهيدر */
         header { position: fixed; top: 0; width: 100%; padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; }
-        .controls { display: flex; gap: 20px; align-items: center; }
-        .btn-icon { background: none; border: 1px solid var(--accent); color: var(--accent); width: 45px; height: 45px; border-radius: 50%; cursor: none; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
-        .btn-icon:hover { background: var(--accent); color: #000; }
+        .controls { display: flex; gap: 15px; align-items: center; }
+        .btn-icon { background: none; border: 1px solid var(--accent); color: var(--accent); width: 45px; height: 45px; border-radius: 50%; cursor: none; display: flex; justify-content: center; align-items: center; transition: 0.3s; position: relative; }
+        .btn-icon:hover { background: var(--accent); color: #000; transform: scale(1.1); }
 
-        /* Hero Section */
+        /* Hero */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 10rem); font-style: italic; line-height: 0.8; }
 
-        /* قسم الأعمال مع تأثير التكبير السينمائي */
+        /* الأنميشن السينمائي للصور */
         .work-container { padding: 100px 5%; }
-        .project-card { position: relative; width: 100%; height: 80vh; margin-bottom: 80px; overflow: hidden; border-radius: 5px; }
-        .project-card img { width: 100%; height: 120%; object-fit: cover; position: absolute; top: -10%; transition: transform 0.1s ease-out; filter: grayscale(100%); }
+        .project-card { position: relative; width: 100%; height: 80vh; margin-bottom: 80px; overflow: hidden; border-radius: 5px; background: #111; }
+        .project-card img { width: 100%; height: 140%; object-fit: cover; position: absolute; top: -20%; transition: filter 0.8s ease; filter: grayscale(100%); }
         .project-card:hover img { filter: grayscale(0%); }
-        .project-info { position: absolute; bottom: 50px; right: 50px; z-index: 10; text-align: right; }
-        .project-info h2 { font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .project-info { position: absolute; bottom: 50px; right: 50px; z-index: 10; text-align: right; pointer-events: none; }
+        .project-info h2 { font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
 
-        /* نافذة السيرة الذاتية (CV Modal) */
+        /* نافذة السيرة الذاتية */
         #cv-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(15px); }
-        .cv-content { background: var(--glass); border: 1px solid var(--accent); padding: 60px; max-width: 600px; text-align: center; position: relative; }
-        .close-cv { position: absolute; top: 20px; left: 20px; color: var(--accent); font-size: 2rem; }
+        .cv-content { background: var(--glass); border: 1px solid var(--accent); padding: 60px; max-width: 600px; text-align: center; position: relative; color: #fff; }
 
-        footer { padding: 100px; text-align: center; border-top: 1px solid var(--glass); }
+        footer { padding: 100px; text-align: center; border-top: 1px solid var(--glass); opacity: 0.5; }
 
-        @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } }
+        @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } header { padding: 20px; } }
     </style>
 </head>
 <body>
@@ -66,12 +62,20 @@
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
 
+    <div style="display:none"><div id="yt-player"></div></div>
+
     <header>
-        <div style="font-family: 'Playfair Display'; font-size: 2rem; font-weight: 900;">B.A</div>
+        <div style="font-family: 'Playfair Display'; font-size: 2rem; font-weight: 900; color: #fff;">B.A</div>
         <div class="controls">
-            <button class="btn-icon" onclick="toggleTheme()" title="تبديل النمط"><i class="fas fa-moon" id="theme-icon"></i></button>
-            <button class="btn-icon" onclick="openCV()" title="السيرة الذاتية"><i class="fas fa-file-alt"></i></button>
-            <button class="btn-icon" onclick="location.href='https://www.facebook.com/share/1L7TQRNq6N/'"><i class="fab fa-facebook-f"></i></button>
+            <button class="btn-icon" id="music-btn" onclick="toggleMusic()" title="تشغيل النشيد">
+                <i class="fas fa-play" id="music-icon"></i>
+            </button>
+            <button class="btn-icon" onclick="toggleTheme()" title="تبديل النمط">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <button class="btn-icon" onclick="openCV()" title="السيرة الذاتية">
+                <i class="fas fa-file-alt"></i>
+            </button>
         </div>
     </header>
 
@@ -83,7 +87,7 @@
     <div class="work-container">
         <div class="project-card">
             <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" class="parallax-img">
-            <div class="project-info"><h2>Visual Soul</h2><p>2026 CONCEPT</p></div>
+            <div class="project-info"><h2>Visual Soul</h2><p>ART DIRECTION</p></div>
         </div>
         <div class="project-card">
             <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" class="parallax-img">
@@ -93,24 +97,51 @@
 
     <div id="cv-modal">
         <div class="cv-content">
-            <span class="close-cv" onclick="closeCV()">&times;</span>
+            <span style="position:absolute; top:20px; left:20px; cursor:pointer; font-size:2rem; color:var(--accent);" onclick="closeCV()">&times;</span>
             <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 20px;">BASHAR ABOALI</h2>
             <p style="color: var(--accent); margin-bottom: 30px;">مدير إبداعي وفنان بصري</p>
             <div style="text-align: right; line-height: 2;">
-                <p>• خبرة في الهويات البصرية الفاخرة.</p>
-                <p>• متخصص في تجربة المستخدم UI/UX.</p>
-                <p>• إخراج فني سينمائي للمشاريع الرقمية.</p>
+                <p>• تصميم هويات بصرية استراتيجية.</p>
+                <p>• إخراج فني للمشاريع الفاخرة.</p>
+                <p>• تطوير تجارب رقمية تفاعلية.</p>
             </div>
-            <button class="btn-icon" style="width: auto; padding: 0 30px; border-radius: 5px; margin-top: 40px;" onclick="window.print()">تحميل PDF</button>
+            <button class="btn-icon" style="width: auto; padding: 0 30px; border-radius: 5px; margin-top: 40px;" onclick="window.print()">تصدير PDF</button>
         </div>
     </div>
 
     <footer>
-        <p style="opacity: 0.5;">© 2026 BASHAR ABOALI | DEFINING THE FUTURE</p>
+        <p>© 2026 BASHAR ABOALI | DEFINING THE FUTURE</p>
     </footer>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // 1. تبديل النمط (Light/Dark)
+        // --- 1. إدارة النشيد (YouTube API) ---
+        let player;
+        let isPlaying = false;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '0', width: '0', videoId: 'VZY3_wV8GkE',
+                events: { 'onReady': () => console.log("Music Ready") }
+            });
+        }
+
+        function toggleMusic() {
+            const icon = document.getElementById('music-icon');
+            const btn = document.getElementById('music-btn');
+            if(!isPlaying) {
+                player.playVideo();
+                icon.className = "fas fa-pause";
+                btn.style.boxShadow = "0 0 15px var(--accent)";
+                isPlaying = true;
+            } else {
+                player.pauseVideo();
+                icon.className = "fas fa-play";
+                btn.style.boxShadow = "none";
+                isPlaying = false;
+            }
+        }
+
+        // --- 2. تبديل النمط ---
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
             const icon = document.getElementById('theme-icon');
@@ -118,24 +149,23 @@
             icon.classList.toggle('fa-sun');
         }
 
-        // 2. نافذة السيرة الذاتية
+        // --- 3. السيرة الذاتية ---
         function openCV() { document.getElementById('cv-modal').style.display = 'flex'; }
         function closeCV() { document.getElementById('cv-modal').style.display = 'none'; }
 
-        // 3. تأثير التكبير السينمائي (Parallax)
+        // --- 4. تأثير Parallax المطور ---
         window.addEventListener('scroll', () => {
             const imgs = document.querySelectorAll('.parallax-img');
             imgs.forEach(img => {
-                let speed = 0.2;
                 let rect = img.parentElement.getBoundingClientRect();
                 if(rect.top < window.innerHeight && rect.bottom > 0) {
-                    let shift = (window.innerHeight - rect.top) * speed;
-                    img.style.transform = `translateY(${shift}px) scale(1.1)`;
+                    let move = (window.innerHeight - rect.top) * 0.15;
+                    img.style.transform = `translateY(${move}px) scale(1.15)`;
                 }
             });
         });
 
-        // 4. المؤشر والخلفية (نفس الأكواد السابقة مع تحسين الأداء)
+        // --- 5. المؤشر والخلفية التفاعلية ---
         const dot = document.getElementById('cursor');
         const follow = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
@@ -148,7 +178,7 @@
         let pts = [];
         function res() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.onresize = res; res();
-        for(let i=0; i<35; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4});
+        for(let i=0; i<35; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
         function anim() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
             ctx.strokeStyle = "rgba(212, 175, 55, 0.15)";
