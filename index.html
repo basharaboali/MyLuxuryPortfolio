@@ -3,41 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BASHAR ABOALI | Creative Director</title>
+    <title>BASHAR ABOALI | The Visionary</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Playfair+Display:ital,wght@0,900;1,900&family=Amiri:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --accent: #d4af37; --bg: #000000; --glass: rgba(255, 255, 255, 0.05); }
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background: var(--bg); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-
-        /* خلفية ثابتة خفيفة */
-        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
-
-        /* المؤشر مصلح */
-        #cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; }
-        #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: transform 0.1s ease-out; }
-
-        /* زر الصوت - واضح وبسيط */
-        #music-control {
-            position: fixed; bottom: 30px; left: 30px; z-index: 10000;
-            background: var(--accent); color: #000; width: 55px; height: 55px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        :root {
+            --primary: #ffffff;
+            --accent: #d4af37;
+            --bg: #000000;
+            --glass: rgba(255, 255, 255, 0.05);
+            --card-hover: rgba(212, 175, 55, 0.1);
         }
 
-        header { padding: 40px; display: flex; justify-content: space-between; z-index: 100; position: relative; }
-        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 15vw, 10rem); font-style: italic; line-height: 0.8; }
-        
-        .section { padding: 100px 10%; text-align: center; }
-        .glass-box { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); padding: 60px; backdrop-filter: blur(10px); }
-        .quote { font-family: 'Amiri', serif; font-size: 2rem; color: var(--accent); }
+        /* النمط الفاتح (Light Mode) */
+        body.light-mode {
+            --primary: #000000;
+            --bg: #f8f8f8;
+            --glass: rgba(0, 0, 0, 0.05);
+            --card-hover: rgba(212, 175, 55, 0.05);
+        }
 
-        .work-img { width: 100%; height: 70vh; object-fit: cover; filter: grayscale(1); transition: 1s; margin-top: 30px; }
-        .work-img:hover { filter: grayscale(0); transform: scale(1.02); }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background: var(--bg); color: var(--primary); font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.5s, color 0.5s; overflow-x: hidden; }
 
-        footer { padding: 80px; text-align: center; opacity: 0.5; font-size: 0.8rem; }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+
+        /* المؤشر المطور */
+        #cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 10001; pointer-events: none; }
+        #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; transition: transform 0.1s; }
+
+        /* الهيدر والأزرار */
+        header { position: fixed; top: 0; width: 100%; padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; }
+        .controls { display: flex; gap: 20px; align-items: center; }
+        .btn-icon { background: none; border: 1px solid var(--accent); color: var(--accent); width: 45px; height: 45px; border-radius: 50%; cursor: none; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .btn-icon:hover { background: var(--accent); color: #000; }
+
+        /* Hero Section */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 10rem); font-style: italic; line-height: 0.8; }
+
+        /* قسم الأعمال مع تأثير التكبير السينمائي */
+        .work-container { padding: 100px 5%; }
+        .project-card { position: relative; width: 100%; height: 80vh; margin-bottom: 80px; overflow: hidden; border-radius: 5px; }
+        .project-card img { width: 100%; height: 120%; object-fit: cover; position: absolute; top: -10%; transition: transform 0.1s ease-out; filter: grayscale(100%); }
+        .project-card:hover img { filter: grayscale(0%); }
+        .project-info { position: absolute; bottom: 50px; right: 50px; z-index: 10; text-align: right; }
+        .project-info h2 { font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
+
+        /* نافذة السيرة الذاتية (CV Modal) */
+        #cv-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(15px); }
+        .cv-content { background: var(--glass); border: 1px solid var(--accent); padding: 60px; max-width: 600px; text-align: center; position: relative; }
+        .close-cv { position: absolute; top: 20px; left: 20px; color: var(--accent); font-size: 2rem; }
+
+        footer { padding: 100px; text-align: center; border-top: 1px solid var(--glass); }
+
+        @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } }
     </style>
 </head>
 <body>
@@ -46,81 +66,92 @@
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
 
-    <div id="music-control" onclick="handleMusic()">
-        <i id="music-icon" class="fas fa-play"></i>
-    </div>
-    
-    <div style="display:none">
-        <div id="player"></div>
-    </div>
-
     <header>
-        <div style="font-family: 'Playfair Display'; font-size: 1.5rem; font-weight: 900;">B.A</div>
-        <a href="https://www.facebook.com/share/1L7TQRNq6N/" style="color:var(--accent); text-decoration:none;">اتصال</a>
+        <div style="font-family: 'Playfair Display'; font-size: 2rem; font-weight: 900;">B.A</div>
+        <div class="controls">
+            <button class="btn-icon" onclick="toggleTheme()" title="تبديل النمط"><i class="fas fa-moon" id="theme-icon"></i></button>
+            <button class="btn-icon" onclick="openCV()" title="السيرة الذاتية"><i class="fas fa-file-alt"></i></button>
+            <button class="btn-icon" onclick="location.href='https://www.facebook.com/share/1L7TQRNq6N/'"><i class="fab fa-facebook-f"></i></button>
+        </div>
     </header>
 
     <div class="hero">
-        <p style="letter-spacing: 5px; color: var(--accent); margin-bottom: 20px;">CREATIVE DIRECTOR</p>
+        <p style="letter-spacing: 10px; color: var(--accent); margin-bottom: 20px;">CREATIVE DIRECTOR</p>
         <h1>BASHAR</h1>
     </div>
 
-    <div class="section">
-        <div class="glass-box">
-            <p class="quote">"يا زهور الروض ميدي.. بالإبداع والجمال"</p>
+    <div class="work-container">
+        <div class="project-card">
+            <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" class="parallax-img">
+            <div class="project-info"><h2>Visual Soul</h2><p>2026 CONCEPT</p></div>
+        </div>
+        <div class="project-card">
+            <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" class="parallax-img">
+            <div class="project-info"><h2>Digital Era</h2><p>BRANDING</p></div>
         </div>
     </div>
 
-    <div class="section">
-        <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" class="work-img">
+    <div id="cv-modal">
+        <div class="cv-content">
+            <span class="close-cv" onclick="closeCV()">&times;</span>
+            <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 20px;">BASHAR ABOALI</h2>
+            <p style="color: var(--accent); margin-bottom: 30px;">مدير إبداعي وفنان بصري</p>
+            <div style="text-align: right; line-height: 2;">
+                <p>• خبرة في الهويات البصرية الفاخرة.</p>
+                <p>• متخصص في تجربة المستخدم UI/UX.</p>
+                <p>• إخراج فني سينمائي للمشاريع الرقمية.</p>
+            </div>
+            <button class="btn-icon" style="width: auto; padding: 0 30px; border-radius: 5px; margin-top: 40px;" onclick="window.print()">تحميل PDF</button>
+        </div>
     </div>
 
-    <footer>© 2026 BASHAR ABOALI</footer>
+    <footer>
+        <p style="opacity: 0.5;">© 2026 BASHAR ABOALI | DEFINING THE FUTURE</p>
+    </footer>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // 1. معالجة النشيد
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0', width: '0',
-                videoId: 'VZY3_wV8GkE',
-                events: { 'onReady': onPlayerReady }
+        // 1. تبديل النمط (Light/Dark)
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('theme-icon');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+
+        // 2. نافذة السيرة الذاتية
+        function openCV() { document.getElementById('cv-modal').style.display = 'flex'; }
+        function closeCV() { document.getElementById('cv-modal').style.display = 'none'; }
+
+        // 3. تأثير التكبير السينمائي (Parallax)
+        window.addEventListener('scroll', () => {
+            const imgs = document.querySelectorAll('.parallax-img');
+            imgs.forEach(img => {
+                let speed = 0.2;
+                let rect = img.parentElement.getBoundingClientRect();
+                if(rect.top < window.innerHeight && rect.bottom > 0) {
+                    let shift = (window.innerHeight - rect.top) * speed;
+                    img.style.transform = `translateY(${shift}px) scale(1.1)`;
+                }
             });
-        }
-        function onPlayerReady(event) { console.log("Player Ready"); }
+        });
 
-        let playing = false;
-        function handleMusic() {
-            const icon = document.getElementById('music-icon');
-            if(!playing) {
-                player.playVideo();
-                icon.className = "fas fa-pause";
-                playing = true;
-            } else {
-                player.pauseVideo();
-                icon.className = "fas fa-play";
-                playing = false;
-            }
-        }
-
-        // 2. المؤشر المصلح (يعمل بنعومة)
+        // 4. المؤشر والخلفية (نفس الأكواد السابقة مع تحسين الأداء)
         const dot = document.getElementById('cursor');
         const follow = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-            follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 600, fill: "forwards"});
+            follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 500, fill: "forwards"});
         });
 
-        // 3. الخلفية المصلحة
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
         function res() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.onresize = res; res();
-        for(let i=0; i<40; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
+        for(let i=0; i<35; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4});
         function anim() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = "rgba(212, 175, 55, 0.2)";
+            ctx.strokeStyle = "rgba(212, 175, 55, 0.15)";
             pts.forEach(p => {
                 p.x += p.vx; p.y += p.vy;
                 if(p.x<0 || p.x>canvas.width) p.vx*=-1;
