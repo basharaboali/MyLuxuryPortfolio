@@ -14,13 +14,17 @@
             --accent: #d4af37;
             --bg: #000000;
             --glass: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
         }
 
         body.light-mode {
             --primary: #000000;
             --bg: #f8f8f8;
             --glass: rgba(0, 0, 0, 0.05);
+            --card-bg: rgba(0, 0, 0, 0.03);
         }
+
+        html { scroll-behavior: smooth; } /* تمرير سلس */
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body { 
@@ -31,7 +35,7 @@
             overflow-x: hidden; 
         }
 
-        /* --- 1. شاشة التحميل (Preloader) --- */
+        /* --- 1. شاشة التحميل --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex; justify-content: center; align-items: center;
@@ -43,13 +47,13 @@
         }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* --- 2. الخلفية والمؤشر --- */
+        /* --- 2. المؤشر والخلفية --- */
         canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
         #cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 10001; pointer-events: none; }
         #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; transition: 0.1s; }
 
-        /* --- 3. الهيدر وأزرار التحكم --- */
-        header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        /* --- 3. الهيدر --- */
+        header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
         
         .nav-group { display: flex; gap: 15px; align-items: center; }
@@ -58,34 +62,56 @@
             text-decoration: none; font-weight: 800; font-size: 0.8rem; transition: 0.3s; 
             border: 1px solid var(--accent);
         }
-        .contact-btn:hover { background: transparent; color: var(--accent); }
+        .contact-btn:hover { background: transparent; color: var(--accent); transform: scale(1.05); }
         
         .btn-icon { 
             background: none; border: 1px solid var(--accent); color: var(--accent); 
             width: 42px; height: 42px; border-radius: 50%; display: flex; 
-            justify-content: center; align-items: center; transition: 0.3s;
+            justify-content: center; align-items: center; transition: 0.3s; cursor: none;
         }
         .btn-icon:hover { transform: rotate(15deg); background: rgba(212, 175, 55, 0.1); }
 
-        /* --- 4. الأقسام وتأثير الظهور --- */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        /* --- 4. Hero & Marquee --- */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 10rem); font-style: italic; margin-bottom: 10px; }
         
-        /* شريط التخصصات (Marquee) */
         .marquee { width: 100%; overflow: hidden; padding: 20px 0; border-top: 1px solid var(--glass); border-bottom: 1px solid var(--glass); margin: 50px 0; }
         .marquee-inner { display: flex; width: 200%; animation: scroll 20s linear infinite; }
         .marquee-inner span { width: 50%; font-size: 0.7rem; letter-spacing: 10px; text-transform: uppercase; color: var(--accent); opacity: 0.6; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } } /* تعديل الاتجاه للـ RTL */
 
-        .project-card { position: relative; width: 90%; margin: 100px auto; height: 85vh; overflow: hidden; border-radius: 4px; background: #111; }
-        .project-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
-        .project-card:hover img { filter: grayscale(0); transform: scale(1.05); }
+        /* --- 5. قسم الخدمات (جديد) --- */
+        .services-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; padding: 100px 50px; max-width: 1400px; margin: 0 auto;
+        }
+        .service-card {
+            background: var(--card-bg); padding: 50px; border: 1px solid var(--glass);
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .service-card:hover { background: var(--accent); color: #000; transform: translateY(-10px); }
+        .service-card i { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent); }
+        .service-card:hover i { color: #000; }
+        .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 15px; }
 
-        footer { padding: 80px; text-align: center; border-top: 1px solid var(--glass); }
-        .footer-text { opacity: 0.4; font-size: 0.8rem; letter-spacing: 2px; }
+        /* --- 6. الأعمل --- */
+        .project-card { position: relative; width: 90%; margin: 50px auto; height: 80vh; overflow: hidden; border-radius: 4px; background: #111; }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        .project-card:hover img { filter: grayscale(0); transform: scale(1.03); }
+
+        /* --- 7. زر العودة للأعلى --- */
+        #backToTop {
+            position: fixed; bottom: 30px; left: 30px; background: var(--accent); color: #000;
+            width: 50px; height: 50px; border-radius: 50%; border: none; display: none;
+            justify-content: center; align-items: center; z-index: 999; transition: 0.3s;
+        }
+        #backToTop:hover { transform: scale(1.1); }
+
+        footer { padding: 100px 50px; text-align: center; border-top: 1px solid var(--glass); }
+        .footer-text { opacity: 0.4; font-size: 0.8rem; letter-spacing: 2px; margin-top: 30px;}
 
         @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } header { padding: 20px; } }
     </style>
@@ -95,6 +121,7 @@
     <div id="loader"><div class="load-text">BASHAR ABOALI</div></div>
 
     <canvas id="bg-canvas"></canvas>
+    
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
     
@@ -103,8 +130,8 @@
     <header>
         <a href="#" class="logo">B.A</a>
         <div class="nav-group">
-            <button class="btn-icon" onclick="toggleMusic()" title="النشيد"><i class="fas fa-play" id="music-icon"></i></button>
-            <button class="btn-icon" onclick="toggleTheme()" title="النمط"><i class="fas fa-moon" id="theme-icon"></i></button>
+            <button class="btn-icon" onclick="toggleMusic()" title="تشغيل النشيد"><i class="fas fa-play" id="music-icon"></i></button>
+            <button class="btn-icon" onclick="toggleTheme()" title="تغيير النمط"><i class="fas fa-moon" id="theme-icon"></i></button>
             <a href="https://www.facebook.com/share/1J89HSCvXk/" class="contact-btn">تواصل معي</a>
         </div>
     </header>
@@ -120,6 +147,24 @@
         </div>
     </section>
 
+    <section class="services-grid">
+        <div class="service-card reveal">
+            <i class="fas fa-bezier-curve"></i>
+            <h3>Branding</h3>
+            <p>بناء هويات بصرية تعكس الفخامة والتميز لعلامتك التجارية.</p>
+        </div>
+        <div class="service-card reveal">
+            <i class="fas fa-laptop-code"></i>
+            <h3>UI/UX Design</h3>
+            <p>تصميم واجهات مستخدم تجمع بين الجمالية وسهولة الاستخدام.</p>
+        </div>
+        <div class="service-card reveal">
+            <i class="fas fa-eye"></i>
+            <h3>Visual Strategy</h3>
+            <p>تخطيط بصري استراتيجي يضعك في مقدمة المنافسين.</p>
+        </div>
+    </section>
+
     <div class="project-card reveal">
         <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" alt="Work One">
     </div>
@@ -128,14 +173,16 @@
         <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" alt="Work Two">
     </div>
 
+    <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
     <footer class="reveal">
-        <a href="https://www.facebook.com/share/1J89HSCvXk/" style="text-decoration:none; color:var(--accent); font-size:2rem; font-family:'Playfair Display';">Let's Create.</a>
-        <p class="footer-text" style="margin-top: 40px;">© 2026 BASHAR ABOALI | THE FUTURE IS VISUAL</p>
+        <a href="https://www.facebook.com/share/1J89HSCvXk/" style="text-decoration:none; color:var(--accent); font-size:3rem; font-family:'Playfair Display';">Let's Create.</a>
+        <p class="footer-text">© 2026 BASHAR ABOALI | THE FUTURE IS VISUAL</p>
     </footer>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // --- 1. إخفاء شاشة التحميل ---
+        // --- إخفاء شاشة التحميل ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
             setTimeout(() => {
@@ -144,14 +191,13 @@
             }, 1500);
         });
 
-        // --- 2. تأثير الظهور عند التمرير ---
+        // --- تأثير الظهور عند التمرير ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
                 var windowHeight = window.innerHeight;
                 var elementTop = el.getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 100) {
                     el.classList.add("active");
                 }
             });
@@ -159,7 +205,16 @@
         window.addEventListener("scroll", reveal);
         window.addEventListener("load", reveal);
 
-        // --- 3. إدارة النشيد (YouTube API) ---
+        // --- زر العودة للأعلى ---
+        window.onscroll = function() {
+            let btn = document.getElementById("backToTop");
+            if (document.documentElement.scrollTop > 500) { btn.style.display = "flex"; } 
+            else { btn.style.display = "none"; }
+            reveal();
+        };
+        document.getElementById("backToTop").onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+        // --- إدارة النشيد ---
         let player, isPlaying = false;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt-player', { height: '0', width: '0', videoId: 'VZY3_wV8GkE' });
@@ -170,21 +225,22 @@
             else { player.pauseVideo(); icon.className = "fas fa-play"; isPlaying = false; }
         }
 
-        // --- 4. تبديل النمط ---
+        // --- تبديل النمط ---
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
             const icon = document.getElementById('theme-icon');
             icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun');
         }
 
-        // --- 5. المؤشر والخلفية ---
+        // --- المؤشر التفاعلي ---
         const dot = document.getElementById('cursor');
         const follow = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-            follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 500, fill: "forwards"});
+            follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 600, fill: "forwards"});
         });
 
+        // --- خلفية الشبكة المتحركة ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
@@ -193,7 +249,7 @@
         for(let i=0; i<35; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
         function anim() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = "rgba(212, 175, 55, 0.15)";
+            ctx.strokeStyle = document.body.classList.contains('light-mode') ? "rgba(212, 175, 55, 0.2)" : "rgba(212, 175, 55, 0.15)";
             pts.forEach(p => {
                 p.x += p.vx; p.y += p.vy;
                 if(p.x<0 || p.x>canvas.width) p.vx*=-1; if(p.y<0 || p.y>canvas.height) p.vy*=-1;
