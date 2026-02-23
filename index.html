@@ -5,183 +5,200 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BASHAR ABOALI | Creative Director</title>
     
+    <meta name="description" content="بشار أبو علي - مدير إبداعي متخصص في بناء الهويات البصرية وتصميم واجهات المستخدم.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --primary: #ffffff;
             --accent: #d4af37;
             --bg: #000000;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body.light-mode {
             --primary: #000000;
-            --bg: #ffffff;
-        }
-
-        /* جعل التمرير ناعم بدون مكتبات خارجية معقدة */
-        html {
-            scroll-behavior: smooth;
+            --bg: #f8f8f8;
+            --glass: rgba(0, 0, 0, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        
-        body { 
-            background: var(--bg); 
-            color: var(--primary); 
-            font-family: 'Arial', sans-serif; 
-            transition: 0.5s; 
-            overflow-x: hidden; 
-        }
+        body { background: var(--bg); color: var(--primary); font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.5s; overflow-x: hidden; }
 
-        /* الهيدر */
-        header { 
-            position: fixed; top: 0; width: 100%; padding: 30px; 
-            display: flex; justify-content: space-between; z-index: 1000; 
+        /* شاشة التحميل */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000; display: flex; justify-content: center; align-items: center;
         }
-
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); text-decoration: none; }
-
-        /* الهيرو */
-        .hero { 
-            height: 100vh; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center; 
-        }
-        .hero h1 { font-size: 8vw; letter-spacing: 10px; margin-bottom: 20px; }
-
-        /* المشاريع بصور احترافية جديدة */
-        .project-card { 
-            width: 90%; margin: 50px auto; position: relative; 
-            height: 70vh; overflow: hidden; border: 1px solid rgba(212,175,55,0.2);
-        }
-        .project-card img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            transition: 1s; filter: grayscale(100%);
-        }
-        .project-card:hover img { filter: grayscale(0%); transform: scale(1.05); }
-
-        .project-info {
-            position: absolute; bottom: 20px; right: 20px;
-            background: rgba(0,0,0,0.8); padding: 15px; border-right: 3px solid var(--accent);
-        }
+        .load-text { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--accent); letter-spacing: 8px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 50% { opacity: 0.2; } }
 
         /* المؤشر */
-        #cursor {
-            width: 10px; height: 10px; background: var(--accent);
-            border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999;
-        }
-        #cursor-follower {
-            width: 40px; height: 40px; border: 1px solid var(--accent);
-            border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998;
-            transition: 0.1s;
-        }
+        #cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 11001; pointer-events: none; }
+        #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 11000; pointer-events: none; transition: 0.1s; }
 
-        /* القائمة */
-        .nav-btns { display: flex; gap: 15px; }
-        .btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 15px; border-radius: 20px; }
+        /* الهيدر */
+        header { position: fixed; top: 0; width: 100%; padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        .nav-group { display: flex; gap: 15px; }
+        .btn-icon { background: none; border: 1px solid var(--accent); color: var(--accent); width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .contact-btn { background: var(--accent); color: #000; padding: 10px 25px; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: 0.8rem; }
 
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        /* الهيرو */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 10rem); font-style: italic; background: linear-gradient(to bottom, var(--accent), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* المشاريع المحدثة بصور فخمة */
+        .project-card { position: relative; width: 90%; margin: 80px auto; height: 80vh; overflow: hidden; border-radius: 10px; }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1s; }
+        .project-card:hover img { filter: grayscale(0); transform: scale(1.05); }
+        .project-info { position: absolute; bottom: 40px; right: 40px; background: rgba(0,0,0,0.8); padding: 25px; border-right: 4px solid var(--accent); }
+
+        /* الخدمات */
+        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 100px 50px; }
+        .service-card { background: var(--glass); padding: 50px; border: 1px solid rgba(212,175,55,0.1); transition: 0.4s; }
+        .service-card:hover { background: var(--accent); color: #000; }
+        .service-card i { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent); }
+        .service-card:hover i { color: #000; }
+
+        /* الأسئلة الشائعة */
+        .faq { padding: 100px 50px; max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--glass); padding: 20px 0; cursor: pointer; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: 0.3s; opacity: 0.7; }
+        .faq-item.active .faq-answer { max-height: 100px; padding-top: 15px; }
+
+        footer { padding: 100px 50px; text-align: center; border-top: 1px solid var(--glass); }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+
+        /* شريط التمرير المخصص */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="cursor"></div>
-    <div id="cursor-follower"></div>
+    <div id="loader"><div class="load-text">BASHAR ABOALI</div></div>
 
     <audio id="bg-music" loop>
         <source src="https://dl.dropboxusercontent.com/scl/fi/ijcu0cql1qjhm05cjtfva/vSqN7UPS6SGTSg0VEpok-VZY3_wV8GkE.m4a?rlkey=vsipmo4ibpkkgeybv2si5n63n" type="audio/mp4">
     </audio>
 
+    <canvas id="bg-canvas"></canvas>
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
     <header>
-        <a href="#" class="logo">BASHAR</a>
-        <div class="nav-btns">
-            <button class="btn" onclick="toggleMusic()">Music</button>
-            <button class="btn" onclick="document.body.classList.toggle('light-mode')">Mode</button>
+        <a href="#" class="logo">B.A</a>
+        <div class="nav-group">
+            <button class="btn-icon" onclick="toggleMusic()"><i class="fas fa-play" id="music-icon"></i></button>
+            <button class="btn-icon" onclick="toggleTheme()"><i class="fas fa-moon" id="theme-icon"></i></button>
+            <a href="#" class="contact-btn">تواصل معي</a>
         </div>
     </header>
 
     <section class="hero">
-        <h1 style="color: var(--accent);">CREATIVE</h1>
-        <p>DIRECTOR & DESIGNER</p>
+        <p style="letter-spacing: 12px; color: var(--accent); margin-bottom: 20px;">CREATIVE DIRECTOR</p>
+        <h1>BASHAR</h1>
     </section>
 
     <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=2000&auto=format&fit=crop" alt="Identity">
+        <img src="https://images.unsplash.com/photo-1635405074683-96d6921a2a2c?auto=format&fit=crop&q=80&w=2000" alt="Identity" loading="lazy">
         <div class="project-info">
-            <h4>BRANDING IDENTITY</h4>
-            <p>High-End Visual Concept</p>
+            <h4 style="color: var(--accent);">VOGUE IDENTITY</h4>
+            <p>Visual Strategy & Branding</p>
         </div>
     </div>
 
     <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80&w=2000&auto=format&fit=crop" alt="UIUX">
+        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=2000" alt="UIUX" loading="lazy">
         <div class="project-info">
-            <h4>UI/UX DESIGN</h4>
-            <p>Digital Product Experience</p>
+            <h4 style="color: var(--accent);">DIGITAL EXPERIENCE</h4>
+            <p>UI/UX Design Systems</p>
         </div>
     </div>
 
-    <canvas id="canvas"></canvas>
+    <section class="services">
+        <div class="service-card">
+            <i class="fas fa-bezier-curve"></i>
+            <h3>Branding</h3>
+            <p>بناء هويات بصرية تعكس الفخامة والتميز.</p>
+        </div>
+        <div class="service-card">
+            <i class="fas fa-laptop-code"></i>
+            <h3>UI/UX Design</h3>
+            <p>تصميم واجهات تجمع بين الجمال وسهولة الاستخدام.</p>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h2 style="margin-bottom: 30px; font-family: 'Playfair Display';">الأسئلة الشائعة</h2>
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <div class="faq-question">كم تستغرق عملية بناء الهوية؟ <i class="fas fa-plus" style="float: left;"></i></div>
+            <div class="faq-answer">تستغرق عادة من 3 إلى 5 أسابيع لضمان أعلى مستويات الدقة.</div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="font-family: 'Playfair Display'; color: var(--accent); font-size: 3rem;">Let's Create.</h2>
+        <p style="opacity: 0.4; margin-top: 30px;">© 2026 BASHAR ABOALI</p>
+    </footer>
 
     <script>
         const audio = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
         let isPlaying = false;
 
-        // تشغيل النشيد عند أول ضغطة في أي مكان كما طلبت
-        document.addEventListener('click', () => {
-            if(!isPlaying) {
-                audio.play();
-                isPlaying = true;
-            }
+        // شاشة التحميل
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 1000);
+            }, 1500);
+        };
+
+        // تشغيل النشيد عند أول ضغطة
+        document.body.addEventListener('click', () => {
+            if(!isPlaying) { audio.play(); musicIcon.className = "fas fa-pause"; isPlaying = true; }
         }, { once: true });
 
-        function toggleMusic() {
-            if (audio.paused) audio.play(); else audio.pause();
-        }
-
-        // تحريك المؤشر (الكود البسيط المستقر)
-        const cursor = document.getElementById('cursor');
-        const follower = document.getElementById('cursor-follower');
-        
+        // المؤشر
+        const dot = document.getElementById('cursor');
+        const follow = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            setTimeout(() => {
-                follower.style.left = e.clientX - 15 + 'px';
-                follower.style.top = e.clientY - 15 + 'px';
-            }, 50);
+            dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+            follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 500, fill: "forwards"});
         });
 
-        // كود الـ Canvas (نفس الذي كان يعمل عندك)
-        const canvas = document.getElementById('canvas');
+        function toggleMusic() {
+            if (audio.paused) { audio.play(); musicIcon.className = "fas fa-pause"; isPlaying = true; }
+            else { audio.pause(); musicIcon.className = "fas fa-play"; isPlaying = false; }
+        }
+
+        function toggleTheme() { document.body.classList.toggle('light-mode'); }
+
+        // Canvas
+        const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particles = [];
-        for(let i=0; i<50; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 1,
-                vy: (Math.random() - 0.5) * 1
-            });
-        }
-
-        function animate() {
+        let pts = [];
+        function res() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = res; res();
+        for(let i=0; i<35; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
+        function anim() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = '#d4af37';
-            ctx.globalAlpha = 0.2;
-            particles.forEach(p => {
+            ctx.strokeStyle = "rgba(212, 175, 55, 0.15)";
+            pts.forEach(p => {
                 p.x += p.vx; p.y += p.vy;
-                if(p.x<0 || p.x>canvas.width) p.vx*=-1;
-                if(p.y<0 || p.y>canvas.height) p.vy*=-1;
-                
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
-                ctx.stroke();
+                if(p.x<0 || p.x>canvas.width) p.vx*=-1; if(p.y<0 || p.y>canvas.height) p.vy*=-1;
+                pts.forEach(p2 => {
+                    let d = Math.hypot(p.x-p2.x, p.y-p2.y);
+                    if(d<150) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); }
+                });
             });
-            requestAnimationFrame(animate);
+            requestAnimationFrame(anim);
         }
-        animate();
+        anim();
     </script>
 </body>
 </html>
