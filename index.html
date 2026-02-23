@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BASHAR ABOALI | Creative Director</title>
     
-    <meta name="description" content="بشار أبو علي | مخرج إبداعي وبناء هويات تجارية فاخرة.">
+    <meta name="description" content="بشار أبو علي | مخرج إبداعي وبناء هويات تجارية فاخرة">
     <meta name="keywords" content="Creative Director, Branding, UI/UX, بشار أبو علي, تصميم هوية">
 
     <link rel="icon" type="image/png" href="https://via.placeholder.com/32/d4af37/000000?text=B">
@@ -136,6 +136,14 @@
         .footer-text { opacity: 0.4; font-size: 0.8rem; letter-spacing: 2px; margin-top: 30px;}
 
         @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } header { padding: 20px; } }
+       /* تأثير النبض للزر */
+@keyframes softPulse {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+.contact-btn { animation: softPulse 1#a580ffs infinite !important; }
+ 
     </style>
 </head>
 <body>
@@ -170,15 +178,15 @@
             </div>
         </div>
     </section>
-
+    
     <section class="clients-section reveal">
         <p style="font-size: 0.6rem; opacity: 0.4; margin-bottom: 30px; letter-spacing: 3px;">BRANDS I WORKED WITH</p>
-        <div class="clients-grid">
-            <i class="fab fa-apple"></i>
-            <i class="fab fa-amazon"></i>
-            <i class="fab fa-spotify"></i>
-            <i class="fab fa-airbnb"></i>
-            <i class="fab fa-nike"></i>
+       <div class="clients-grid">
+             <i class="fab fa-apple"></i>
+             <i class="fab fa-amazon"></i>
+             <i class="fab fa-spotify"></i>
+             <i class="fab fa-airbnb"></i>
+             <i class="fab fa-nike"></i>
         </div>
     </section>
 
@@ -276,6 +284,11 @@
     </div>
     
     <p style="text-align: center; opacity: 0.4; font-size: 0.7rem; letter-spacing: 2px;">← SWIPE TO EXPLORE →</p>
+</section>
+<section class="stats reveal" style="display: flex; justify-content: space-around; padding: 50px; background: var(--glass); text-align: center;">
+    <div><h2 style="color: var(--accent);">+50</h2><p style="font-size: 0.7rem;">CLIENTS</p></div>
+    <div><h2 style="color: var(--accent);">+120</h2><p style="font-size: 0.7rem;">PROJECTS</p></div>
+    <div><h2 style="color: var(--accent);">10</h2><p style="font-size: 0.7rem;">AWARDS</p></div>
 </section>
 
     <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
@@ -401,6 +414,19 @@
             requestAnimationFrame(anim);
         }
         anim();
+    // تأثير حركة الصور الاحترافي
+window.addEventListener('scroll', () => {
+    const images = document.querySelectorAll('.project-card img');
+    images.forEach(img => {
+        const rect = img.parentElement.getBoundingClientRect();
+        if(rect.top < window.innerHeight && rect.bottom > 0) {
+            // تحريك الصورة ببطء داخل إطارها
+            const shift = (rect.top * 0.1); 
+            img.style.transform = `translateY(${shift}px) scale(1.1)`;
+        }
+    });
+});
+
     </script>
 </body>
 </html>
