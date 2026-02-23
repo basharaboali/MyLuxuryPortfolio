@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BASHAR ABOALI | Creative Director</title>
     
+    <meta name="description" content="بشار أبو علي - مدير إبداعي متخصص في بناء الهويات البصرية وتصميم واجهات المستخدم.">
+    <meta name="keywords" content="Creative Director, Branding, UI/UX, بشار أبو علي, تصميم هوية">
+
     <link rel="icon" type="image/png" href="https://via.placeholder.com/32/d4af37/000000?text=B">
-    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -28,6 +30,11 @@
 
         html { scroll-behavior: smooth; }
 
+        /* شريط التمرير الاحترافي */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body { 
             background: var(--bg); 
@@ -37,7 +44,7 @@
             overflow-x: hidden; 
         }
 
-        /* --- 1. شاشة التحميل --- */
+        /* --- شاشة التحميل --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex; justify-content: center; align-items: center;
@@ -49,12 +56,13 @@
         }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* --- 2. المؤشر والخلفية --- */
+        /* --- المؤشر والخلفية --- */
         canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
         #cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 11001; pointer-events: none; }
         #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 11000; pointer-events: none; transition: 0.1s; }
+        .cursor-hover { transform: scale(1.8); background: rgba(212, 175, 55, 0.15); border: none !important; }
 
-        /* --- 3. الهيدر --- */
+        /* --- الهيدر --- */
         header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
         
@@ -73,7 +81,7 @@
         }
         .btn-icon:hover { transform: rotate(15deg); background: rgba(212, 175, 55, 0.1); }
 
-        /* --- 4. Hero Section --- */
+        /* --- الأقسام --- */
         .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -85,13 +93,11 @@
         .marquee-inner span { width: 50%; font-size: 0.7rem; letter-spacing: 10px; text-transform: uppercase; color: var(--accent); opacity: 0.6; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
 
-        /* --- 5. قسم شعارات العملاء (جديد) --- */
         .clients-section { padding: 50px 0; text-align: center; border-bottom: 1px solid var(--glass); }
         .clients-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; opacity: 0.5; filter: grayscale(1); }
         .clients-grid i { font-size: 2.5rem; transition: 0.3s; }
         .clients-grid i:hover { opacity: 1; filter: grayscale(0); color: var(--accent); }
 
-        /* --- 6. الخدمات --- */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 100px 50px; max-width: 1400px; margin: 0 auto; }
         .service-card { background: var(--card-bg); padding: 50px; border: 1px solid var(--glass); transition: 0.4s; position: relative; overflow: hidden; }
         .service-card:hover { background: var(--accent); color: #000; transform: translateY(-10px); }
@@ -99,7 +105,6 @@
         .service-card:hover i { color: #000; }
         .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 15px; }
 
-        /* --- 7. الأعمال مع تأثير دراسة الحالة --- */
         .project-card { position: relative; width: 90%; margin: 50px auto; height: 80vh; overflow: hidden; border-radius: 4px; background: #111; }
         .project-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
         .project-card:hover img { filter: grayscale(0); transform: scale(1.03); }
@@ -110,14 +115,13 @@
         }
         .project-card:hover .project-info { opacity: 1; transform: translateX(0); }
 
-        /* --- 8. قسم الأسئلة الشائعة (Accordion) --- */
         .faq-section { padding: 100px 50px; max-width: 800px; margin: 0 auto; }
         .faq-item { border-bottom: 1px solid var(--glass); padding: 20px 0; }
-        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 800; cursor: none; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 800; }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; opacity: 0.7; font-size: 0.9rem; padding-top: 10px; }
         .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 10px; }
 
-        /* --- 9. النافذة المنبثقة --- */
+        /* --- النافذة المنبثقة --- */
         .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 20000; }
         .popup-overlay.active { display: flex; }
         .popup-content { background: var(--bg); border: 1px solid var(--accent); padding: 50px; width: 90%; max-width: 500px; position: relative; transform: translateY(30px); transition: 0.5s; }
@@ -138,12 +142,14 @@
 
     <div id="loader"><div class="load-text">BASHAR ABOALI</div></div>
 
+    <audio id="bg-music" loop>
+        <source src="https://dl.dropboxusercontent.com/scl/fi/ijcu0cql1qjhm05cjtfva/vSqN7UPS6SGTSg0VEpok-VZY3_wV8GkE.m4a?rlkey=vsipmo4ibpkkgeybv2si5n63n" type="audio/mp4">
+    </audio>
+
     <canvas id="bg-canvas"></canvas>
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
     
-    <div style="display:none"><div id="yt-player"></div></div>
-
     <header>
         <a href="#" class="logo">B.A</a>
         <div class="nav-group">
@@ -246,15 +252,45 @@
         <p class="footer-text">© 2026 BASHAR ABOALI | THE FUTURE IS VISUAL</p>
     </footer>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        const audio = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        let isPlaying = false;
+
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
             setTimeout(() => {
                 loader.style.opacity = '0';
+                // محاولة التشغيل التلقائي
+                audio.play().then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    isPlaying = true;
+                }).catch(() => console.log("Autoplay blocked. Waiting for interaction."));
+                
                 setTimeout(() => loader.style.visibility = 'hidden', 1000);
             }, 1500);
         });
+
+        // تشغيل عند أول نقرة إذا تم حظر التشغيل التلقائي
+        document.body.addEventListener('click', () => {
+            if(!isPlaying) {
+                audio.play();
+                musicIcon.className = "fas fa-pause";
+                isPlaying = true;
+            }
+        }, { once: true });
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.className = "fas fa-pause";
+                isPlaying = true;
+            } else {
+                audio.pause();
+                musicIcon.className = "fas fa-play";
+                isPlaying = false;
+            }
+        }
 
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
@@ -268,20 +304,11 @@
 
         function togglePopup() { document.getElementById('contactPopup').classList.toggle('active'); }
         
-        // وظيفية الأسئلة الشائعة
         function toggleFaq(el) {
             el.classList.toggle('active');
             const icon = el.querySelector('i');
             icon.classList.toggle('fa-plus');
             icon.classList.toggle('fa-minus');
-        }
-
-        let player, isPlaying = false;
-        function onYouTubeIframeAPIReady() { player = new YT.Player('yt-player', { height: '0', width: '0', videoId: 'VZY3_wV8GkE' }); }
-        function toggleMusic() {
-            const icon = document.getElementById('music-icon');
-            if(!isPlaying) { player.playVideo(); icon.className = "fas fa-pause"; isPlaying = true; }
-            else { player.pauseVideo(); icon.className = "fas fa-play"; isPlaying = false; }
         }
 
         function toggleTheme() {
@@ -290,11 +317,17 @@
             icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun');
         }
 
+        // المؤشر المخصص وتحسين التفاعل
         const dot = document.getElementById('cursor');
         const follow = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
             follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 600, fill: "forwards"});
+        });
+
+        document.querySelectorAll('a, button, .faq-item, .service-card').forEach(el => {
+            el.onmouseenter = () => follow.classList.add('cursor-hover');
+            el.onmouseleave = () => follow.classList.remove('cursor-hover');
         });
 
         window.onscroll = function() {
@@ -305,6 +338,7 @@
         };
         document.getElementById("backToTop").onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
+        // خلفية الـ Canvas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
