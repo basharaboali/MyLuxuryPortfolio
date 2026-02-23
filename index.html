@@ -6,7 +6,9 @@
     <title>BASHAR ABOALI | Creative Director</title>
     
     <meta name="description" content="بشار أبو علي - مدير إبداعي متخصص في بناء الهويات البصرية وتصميم واجهات المستخدم.">
-    
+    <meta name="keywords" content="Creative Director, Branding, UI/UX, بشار أبو علي, تصميم هوية">
+
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/32/d4af37/000000?text=B">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -16,65 +18,124 @@
             --accent: #d4af37;
             --bg: #000000;
             --glass: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
         }
 
         body.light-mode {
             --primary: #000000;
             --bg: #f8f8f8;
             --glass: rgba(0, 0, 0, 0.05);
+            --card-bg: rgba(0, 0, 0, 0.03);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background: var(--bg); color: var(--primary); font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.5s; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
 
-        /* شاشة التحميل */
+        /* شريط التمرير الاحترافي */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { 
+            background: var(--bg); 
+            color: var(--primary); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            transition: background 0.6s ease; 
+            overflow-x: hidden; 
+        }
+
+        /* --- شاشة التحميل --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex; justify-content: center; align-items: center;
+            transition: opacity 1s ease, visibility 1s;
         }
-        .load-text { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--accent); letter-spacing: 8px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 50% { opacity: 0.2; } }
+        #loader .load-text {
+            font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent);
+            letter-spacing: 5px; animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* المؤشر */
+        /* --- المؤشر والخلفية --- */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
         #cursor { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; position: fixed; z-index: 11001; pointer-events: none; }
         #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%; position: fixed; z-index: 11000; pointer-events: none; transition: 0.1s; }
+        .cursor-hover { transform: scale(1.8); background: rgba(212, 175, 55, 0.15); border: none !important; }
 
-        /* الهيدر */
-        header { position: fixed; top: 0; width: 100%; padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        .nav-group { display: flex; gap: 15px; }
-        .btn-icon { background: none; border: 1px solid var(--accent); color: var(--accent); width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
-        .contact-btn { background: var(--accent); color: #000; padding: 10px 25px; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: 0.8rem; }
+        /* --- الهيدر --- */
+        header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        
+        .nav-group { display: flex; gap: 12px; align-items: center; }
+        .contact-btn { 
+            background: var(--accent); color: #000; padding: 10px 25px; border-radius: 30px; 
+            text-decoration: none; font-weight: 800; font-size: 0.8rem; transition: 0.3s; 
+            border: 1px solid var(--accent);
+        }
+        .contact-btn:hover { background: transparent; color: var(--accent); transform: scale(1.05); }
+        
+        .btn-icon { 
+            background: none; border: 1px solid var(--accent); color: var(--accent); 
+            width: 42px; height: 42px; border-radius: 50%; display: flex; 
+            justify-content: center; align-items: center; transition: 0.3s; text-decoration: none;
+        }
+        .btn-icon:hover { transform: rotate(15deg); background: rgba(212, 175, 55, 0.1); }
 
-        /* الهيرو */
+        /* --- الأقسام --- */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 10rem); font-style: italic; background: linear-gradient(to bottom, var(--accent), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 15vw, 10rem); font-style: italic; margin-bottom: 10px; }
+        
+        .marquee { width: 100%; overflow: hidden; padding: 20px 0; border-top: 1px solid var(--glass); border-bottom: 1px solid var(--glass); margin: 50px 0; }
+        .marquee-inner { display: flex; width: 200%; animation: scroll 20s linear infinite; }
+        .marquee-inner span { width: 50%; font-size: 0.7rem; letter-spacing: 10px; text-transform: uppercase; color: var(--accent); opacity: 0.6; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
 
-        /* المشاريع المحدثة بصور فخمة */
-        .project-card { position: relative; width: 90%; margin: 80px auto; height: 80vh; overflow: hidden; border-radius: 10px; }
-        .project-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1s; }
-        .project-card:hover img { filter: grayscale(0); transform: scale(1.05); }
-        .project-info { position: absolute; bottom: 40px; right: 40px; background: rgba(0,0,0,0.8); padding: 25px; border-right: 4px solid var(--accent); }
+        .clients-section { padding: 50px 0; text-align: center; border-bottom: 1px solid var(--glass); }
+        .clients-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; opacity: 0.5; filter: grayscale(1); }
+        .clients-grid i { font-size: 2.5rem; transition: 0.3s; }
+        .clients-grid i:hover { opacity: 1; filter: grayscale(0); color: var(--accent); }
 
-        /* الخدمات */
-        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 100px 50px; }
-        .service-card { background: var(--glass); padding: 50px; border: 1px solid rgba(212,175,55,0.1); transition: 0.4s; }
-        .service-card:hover { background: var(--accent); color: #000; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 100px 50px; max-width: 1400px; margin: 0 auto; }
+        .service-card { background: var(--card-bg); padding: 50px; border: 1px solid var(--glass); transition: 0.4s; position: relative; overflow: hidden; }
+        .service-card:hover { background: var(--accent); color: #000; transform: translateY(-10px); }
         .service-card i { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent); }
         .service-card:hover i { color: #000; }
+        .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 15px; }
 
-        /* الأسئلة الشائعة */
-        .faq { padding: 100px 50px; max-width: 800px; margin: 0 auto; }
-        .faq-item { border-bottom: 1px solid var(--glass); padding: 20px 0; cursor: pointer; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: 0.3s; opacity: 0.7; }
-        .faq-item.active .faq-answer { max-height: 100px; padding-top: 15px; }
+        .project-card { position: relative; width: 90%; margin: 50px auto; height: 80vh; overflow: hidden; border-radius: 4px; background: #111; }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        .project-card:hover img { filter: grayscale(0); transform: scale(1.03); }
+        .project-info { 
+            position: absolute; bottom: 40px; right: 40px; background: rgba(0,0,0,0.7); 
+            padding: 20px; border-right: 4px solid var(--accent); opacity: 0; 
+            transform: translateX(20px); transition: 0.5s; backdrop-filter: blur(5px);
+        }
+        .project-card:hover .project-info { opacity: 1; transform: translateX(0); }
+
+        .faq-section { padding: 100px 50px; max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--glass); padding: 20px 0; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 800; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; opacity: 0.7; font-size: 0.9rem; padding-top: 10px; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 10px; }
+
+        /* --- النافذة المنبثقة --- */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 20000; }
+        .popup-overlay.active { display: flex; }
+        .popup-content { background: var(--bg); border: 1px solid var(--accent); padding: 50px; width: 90%; max-width: 500px; position: relative; transform: translateY(30px); transition: 0.5s; }
+        .popup-overlay.active .popup-content { transform: translateY(0); }
+        .close-popup { position: absolute; top: 20px; left: 20px; background: none; border: none; color: var(--primary); font-size: 2rem; }
+        .popup-content input, .popup-content textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: var(--glass); border: 1px solid var(--glass); color: var(--primary); font-family: inherit; }
+        .popup-content input:focus, .popup-content textarea:focus { border-color: var(--accent); outline: none; }
+
+        #backToTop { position: fixed; bottom: 30px; left: 30px; background: var(--accent); color: #000; width: 50px; height: 50px; border-radius: 50%; border: none; display: none; justify-content: center; align-items: center; z-index: 999; }
 
         footer { padding: 100px 50px; text-align: center; border-top: 1px solid var(--glass); }
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+        .footer-text { opacity: 0.4; font-size: 0.8rem; letter-spacing: 2px; margin-top: 30px;}
 
-        /* شريط التمرير المخصص */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        @media (max-width: 768px) { * { cursor: auto !important; } #cursor, #cursor-follower { display: none; } header { padding: 20px; } }
     </style>
 </head>
 <body>
@@ -88,61 +149,107 @@
     <canvas id="bg-canvas"></canvas>
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
-
+    
     <header>
         <a href="#" class="logo">B.A</a>
         <div class="nav-group">
-            <button class="btn-icon" onclick="toggleMusic()"><i class="fas fa-play" id="music-icon"></i></button>
-            <button class="btn-icon" onclick="toggleTheme()"><i class="fas fa-moon" id="theme-icon"></i></button>
-            <a href="#" class="contact-btn">تواصل معي</a>
+            <button class="btn-icon" onclick="toggleMusic()" title="النشيد"><i class="fas fa-play" id="music-icon"></i></button>
+            <button class="btn-icon" onclick="toggleTheme()" title="النمط"><i class="fas fa-moon" id="theme-icon"></i></button>
+            <a href="https://www.facebook.com/share/1J89HSCvXk/" target="_blank" class="btn-icon" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+            <a href="javascript:void(0)" onclick="togglePopup()" class="contact-btn">تواصل معي</a>
         </div>
     </header>
 
-    <section class="hero">
-        <p style="letter-spacing: 12px; color: var(--accent); margin-bottom: 20px;">CREATIVE DIRECTOR</p>
+    <section class="hero reveal">
+        <p style="letter-spacing: 12px; color: var(--accent); margin-bottom: 20px; font-weight: 200;">CREATIVE DIRECTOR</p>
         <h1>BASHAR</h1>
+        <div class="marquee">
+            <div class="marquee-inner">
+                <span>BRANDING • UI/UX DESIGN • ART DIRECTION • VISUAL STRATEGY • </span>
+                <span>BRANDING • UI/UX DESIGN • ART DIRECTION • VISUAL STRATEGY • </span>
+            </div>
+        </div>
     </section>
 
-    <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1635405074683-96d6921a2a2c?auto=format&fit=crop&q=80&w=2000" alt="Identity" loading="lazy">
-        <div class="project-info">
-            <h4 style="color: var(--accent);">VOGUE IDENTITY</h4>
-            <p>Visual Strategy & Branding</p>
+    <section class="clients-section reveal">
+        <p style="font-size: 0.6rem; opacity: 0.4; margin-bottom: 30px; letter-spacing: 3px;">BRANDS I WORKED WITH</p>
+        <div class="clients-grid">
+            <i class="fab fa-apple"></i>
+            <i class="fab fa-amazon"></i>
+            <i class="fab fa-spotify"></i>
+            <i class="fab fa-airbnb"></i>
+            <i class="fab fa-nike"></i>
         </div>
-    </div>
+    </section>
 
-    <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=2000" alt="UIUX" loading="lazy">
-        <div class="project-info">
-            <h4 style="color: var(--accent);">DIGITAL EXPERIENCE</h4>
-            <p>UI/UX Design Systems</p>
-        </div>
-    </div>
-
-    <section class="services">
-        <div class="service-card">
+    <section class="services-grid">
+        <div class="service-card reveal">
             <i class="fas fa-bezier-curve"></i>
             <h3>Branding</h3>
-            <p>بناء هويات بصرية تعكس الفخامة والتميز.</p>
+            <p>بناء هويات بصرية تعكس الفخامة والتميز لعلامتك التجارية.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card reveal">
             <i class="fas fa-laptop-code"></i>
             <h3>UI/UX Design</h3>
-            <p>تصميم واجهات تجمع بين الجمال وسهولة الاستخدام.</p>
+            <p>تصميم واجهات مستخدم تجمع بين الجمالية وسهولة الاستخدام.</p>
+        </div>
+        <div class="service-card reveal">
+            <i class="fas fa-eye"></i>
+            <h3>Visual Strategy</h3>
+            <p>تخطيط بصري استراتيجي يضعك في مقدمة المنافسين.</p>
         </div>
     </section>
 
-    <section class="faq">
-        <h2 style="margin-bottom: 30px; font-family: 'Playfair Display';">الأسئلة الشائعة</h2>
-        <div class="faq-item" onclick="this.classList.toggle('active')">
-            <div class="faq-question">كم تستغرق عملية بناء الهوية؟ <i class="fas fa-plus" style="float: left;"></i></div>
-            <div class="faq-answer">تستغرق عادة من 3 إلى 5 أسابيع لضمان أعلى مستويات الدقة.</div>
+    <div class="project-card reveal">
+        <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" alt="Luxury Branding">
+        <div class="project-info">
+            <h4 style="color: var(--accent);">Modern Identity</h4>
+            <p style="font-size: 0.8rem;">Branding & Art Direction</p>
+        </div>
+    </div>
+
+    <div class="project-card reveal">
+        <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" alt="Digital Strategy">
+        <div class="project-info">
+            <h4 style="color: var(--accent);">Tech Interface</h4>
+            <p style="font-size: 0.8rem;">UI/UX Innovation</p>
+        </div>
+    </div>
+
+    <section class="faq-section reveal">
+        <h2 style="font-family: 'Playfair Display'; margin-bottom: 40px; font-size: 2.5rem;">الأسئلة الشائعة</h2>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">كم تستغرق عملية بناء الهوية؟ <i class="fas fa-plus"></i></div>
+            <div class="faq-answer">بناء هوية بصرية كاملة يستغرق عادة من 3 إلى 5 أسابيع لضمان أعلى مستويات الدقة والفخامة.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">هل تقدم خدمات التصميم لمواقع الويب؟ <i class="fas fa-plus"></i></div>
+            <div class="faq-answer">نعم، أصمم واجهات مستخدم (UI/UX) مبتكرة تركز على تحسين تجربة العميل وزيادة التحويلات.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">كيف نبدأ العمل معاً؟ <i class="fas fa-plus"></i></div>
+            <div class="faq-answer">يمكنك البدء بالضغط على "تواصل معي" وحجز جلسة استشارية لمناقشة رؤيتك ومشروعك.</div>
         </div>
     </section>
 
-    <footer>
-        <h2 style="font-family: 'Playfair Display'; color: var(--accent); font-size: 3rem;">Let's Create.</h2>
-        <p style="opacity: 0.4; margin-top: 30px;">© 2026 BASHAR ABOALI</p>
+    <div id="contactPopup" class="popup-overlay">
+        <div class="popup-content">
+            <button class="close-popup" onclick="togglePopup()">&times;</button>
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 25px; text-align: center;">تواصل معي</h2>
+            <form action="https://formspree.io/f/mdalpnlo" method="POST" id="contactForm">
+                <input type="text" name="name" placeholder="الاسم الكامل" required>
+                <input type="email" name="_replyto" placeholder="البريد الإلكتروني" required>
+                <textarea name="message" placeholder="رسالتك أو تفاصيل مشروعك..." rows="5" required></textarea>
+                <button type="submit" class="contact-btn" style="width: 100%; border-radius: 4px;">إرسال الآن</button>
+            </form>
+        </div>
+    </div>
+
+    <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <footer class="reveal">
+        <a href="javascript:void(0)" onclick="togglePopup()" style="text-decoration:none; color:var(--accent); font-size:3rem; font-family:'Playfair Display';">Let's Create.</a>
+        <p class="footer-text">© 2026 BASHAR ABOALI | THE FUTURE IS VISUAL</p>
     </footer>
 
     <script>
@@ -150,35 +257,88 @@
         const musicIcon = document.getElementById('music-icon');
         let isPlaying = false;
 
-        // شاشة التحميل
-        window.onload = () => {
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
             setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('loader').style.display = 'none', 1000);
+                loader.style.opacity = '0';
+                // محاولة التشغيل التلقائي
+                audio.play().then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    isPlaying = true;
+                }).catch(() => console.log("Autoplay blocked. Waiting for interaction."));
+                
+                setTimeout(() => loader.style.visibility = 'hidden', 1000);
             }, 1500);
-        };
+        });
 
-        // تشغيل النشيد عند أول ضغطة
+        // تشغيل عند أول نقرة إذا تم حظر التشغيل التلقائي
         document.body.addEventListener('click', () => {
-            if(!isPlaying) { audio.play(); musicIcon.className = "fas fa-pause"; isPlaying = true; }
+            if(!isPlaying) {
+                audio.play();
+                musicIcon.className = "fas fa-pause";
+                isPlaying = true;
+            }
         }, { once: true });
 
-        // المؤشر
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.className = "fas fa-pause";
+                isPlaying = true;
+            } else {
+                audio.pause();
+                musicIcon.className = "fas fa-play";
+                isPlaying = false;
+            }
+        }
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                var windowHeight = window.innerHeight;
+                var elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) el.classList.add("active");
+            });
+        }
+        window.addEventListener("scroll", reveal);
+
+        function togglePopup() { document.getElementById('contactPopup').classList.toggle('active'); }
+        
+        function toggleFaq(el) {
+            el.classList.toggle('active');
+            const icon = el.querySelector('i');
+            icon.classList.toggle('fa-plus');
+            icon.classList.toggle('fa-minus');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('theme-icon');
+            icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun');
+        }
+
+        // المؤشر المخصص وتحسين التفاعل
         const dot = document.getElementById('cursor');
         const follow = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-            follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 500, fill: "forwards"});
+            follow.animate({left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px'}, {duration: 600, fill: "forwards"});
         });
 
-        function toggleMusic() {
-            if (audio.paused) { audio.play(); musicIcon.className = "fas fa-pause"; isPlaying = true; }
-            else { audio.pause(); musicIcon.className = "fas fa-play"; isPlaying = false; }
-        }
+        document.querySelectorAll('a, button, .faq-item, .service-card').forEach(el => {
+            el.onmouseenter = () => follow.classList.add('cursor-hover');
+            el.onmouseleave = () => follow.classList.remove('cursor-hover');
+        });
 
-        function toggleTheme() { document.body.classList.toggle('light-mode'); }
+        window.onscroll = function() {
+            let btn = document.getElementById("backToTop");
+            if (document.documentElement.scrollTop > 500) btn.style.display = "flex";
+            else btn.style.display = "none";
+            reveal();
+        };
+        document.getElementById("backToTop").onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
-        // Canvas
+        // خلفية الـ Canvas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
@@ -187,13 +347,13 @@
         for(let i=0; i<35; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
         function anim() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = "rgba(212, 175, 55, 0.15)";
+            ctx.strokeStyle = document.body.classList.contains('light-mode') ? "rgba(212, 175, 55, 0.2)" : "rgba(212, 175, 55, 0.15)";
             pts.forEach(p => {
                 p.x += p.vx; p.y += p.vy;
                 if(p.x<0 || p.x>canvas.width) p.vx*=-1; if(p.y<0 || p.y>canvas.height) p.vy*=-1;
                 pts.forEach(p2 => {
                     let d = Math.hypot(p.x-p2.x, p.y-p2.y);
-                    if(d<150) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); }
+                    if(d<200) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); }
                 });
             });
             requestAnimationFrame(anim);
